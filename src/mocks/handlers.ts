@@ -2,6 +2,8 @@ import { http, HttpResponse } from "msw";
 import { consultCategoryData, usageCategoryData } from "@/mocks/data/category";
 import { consultFaqData, usageFaqData } from "@/mocks/data/faq";
 
+const viewCountMap = new Map<number, number>();
+
 export const handlers = [
   http.get("/faq", ({ request }) => {
     const url = new URL(request.url);
@@ -43,6 +45,21 @@ export const handlers = [
         nextOffset: offset + limit < totalRecord ? offset + limit : offset,
       },
       items: paginatedItems,
+    });
+  }),
+
+  http.post("/faq/:id/viewCount", async ({ params }) => {
+    // 조회수는 브라우저 메모리에 임시로 저장 (viewCountMap)
+    // 페이지를 새로고침하면 초기화됨
+    const faqId = Number(params.id);
+
+    const currentCount = viewCountMap.get(faqId) || 0;
+
+    viewCountMap.set(faqId, currentCount + 1);
+
+    return HttpResponse.json({
+      faqId,
+      viewCount: currentCount + 1,
     });
   }),
 ];

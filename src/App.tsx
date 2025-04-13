@@ -49,6 +49,22 @@ function App() {
     }
   };
 
+  // 조회수 증가 함수 추가
+  const incrementViewCount = async (faqId: number) => {
+    try {
+      await fetch(`/faq/${faqId}/viewCount`, {
+        method: "POST",
+      });
+    } catch (error) {
+      console.error("Failed to increment view count:", error);
+    }
+  };
+
+  // FAQ 항목 클릭 핸들러
+  const handleFaqClick = (faqId: number) => {
+    incrementViewCount(faqId);
+  };
+
   return (
     <div className="p-4">
       {/* 탭 선택 */}
@@ -117,7 +133,11 @@ function App() {
       {/* FAQ 목록 */}
       <div className="space-y-4">
         {faqs.map((faq) => (
-          <div key={faq.id} className="border p-4 rounded">
+          <div
+            key={faq.id}
+            className="border p-4 rounded cursor-pointer hover:bg-gray-50"
+            onClick={() => handleFaqClick(faq.id)}
+          >
             <p className="font-bold mb-2">{faq.question}</p>
             <p className="text-gray-600">{faq.answer}</p>
             <p className="text-sm text-gray-500 mt-2">
