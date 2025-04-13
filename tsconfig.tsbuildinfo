@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/mocks/browser.ts","./src/mocks/handlers.ts","./src/pages/faq/faqpage.tsx","./src/shared/footer/footer.tsx","./src/shared/header/header.tsx","./vite.config.ts"],"version":"5.7.3"}
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/mocks/browser.ts","./src/mocks/handlers.ts","./src/mocks/data/category.ts","./src/mocks/data/faq.ts","./src/pages/faq/faqpage.tsx","./src/shared/footer/footer.tsx","./src/shared/header/header.tsx","./vite.config.ts"],"version":"5.7.3"}
