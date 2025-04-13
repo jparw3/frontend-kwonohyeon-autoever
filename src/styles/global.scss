@@ -1,0 +1,10 @@
+@use "@/styles/reset";
+@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css);
+
+* {
+  font-family: "NanumSquare", sans-serif;
+}
+
+svg {
+  cursor: pointer;
+}

@@ -1,0 +1,22 @@
+@use "@/styles/color" as colors;
+@use "@/styles/constants" as constants;
+
+@mixin mobile {
+  @media (max-width: constants.$mo-width) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media (min-width: #{constants.$mo-width + 1px}) {
+    @content;
+  }
+}
+
+@function calculatePcVw($width) {
+  @return #{$width / constants.$pc-width * 100}vw;
+}
+
+@function calculateMoVw($width) {
+  @return #{$width / constants.$mo-width * 100}vw;
+}

@@ -1,0 +1,19 @@
+@use "@/styles/mixin" as mixin;
+@use "@/styles/global" as *;
+@use "@/styles/constants" as constants;
+
+.content_wrapper {
+  padding: constants.$header-height constants.$body-padding
+    constants.$footer-height;
+  box-sizing: border-box;
+
+  margin: 0 auto;
+}
+
+.mobile {
+  max-width: constants.$mo-width;
+}
+
+.pc {
+  max-width: constants.$pc-width;
+}
