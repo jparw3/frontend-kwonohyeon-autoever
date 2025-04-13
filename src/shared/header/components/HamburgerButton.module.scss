@@ -1,0 +1,44 @@
+@use "@/styles/variables" as *;
+@use "@/styles/color" as *;
+
+.hamburger {
+  display: none; 
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  padding: 12px 8px;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: $z-hamburger;
+
+  span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: $color-black;
+    transition: all 0.3s ease;
+  }
+
+  &.open {
+    span {
+      &:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      
+      &:nth-child(2) {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      
+      &:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    display: flex; 
+  }
+} 

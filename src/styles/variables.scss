@@ -1,0 +1,30 @@
+// Breakpoints
+$breakpoint-mobile: 1023px;
+
+// Layout
+$header-height-desktop: 80px;
+$header-height-mobile: 56px;
+$max-width: 1660px;
+
+// Spacing
+$spacing-desktop: 48px;
+$spacing-mobile: 20px;
+
+// Z-index
+$z-header: 1001;
+$z-hamburger: 1001;
+$z-mobile-menu: 999;
+
+// Animation
+$cubic-bezier-primary: cubic-bezier(1, 0, 0.2, 1);
+$transition-duration: 0.8s;
+
+// Font sizes
+$font-size-menu: 18px;
+$font-size-mobile-menu: 24px;
+
+// Logo sizes
+$logo-width-desktop: 140px;
+$logo-height-desktop: 80px;
+$logo-width-mobile: 110px;
+$logo-height-mobile: 40px;

@@ -1,8 +1,25 @@
 @use "@/styles/reset";
-@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css);
 
-* {
-  font-family: "NanumSquare", sans-serif;
+@font-face {
+  font-family: 'KiaSignatureFixBold';
+  src: url('/fonts/KiaSignatureFixBold.woff2') format('woff2'),
+       url('/fonts/KiaSignatureFixBold.woff') format('woff');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'KiaSignatureFixRegular';
+  src: url('/fonts/KiaSignatureFixRegular.woff2') format('woff2'),
+       url('/fonts/KiaSignatureFixRegular.woff') format('woff');
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  font-family: 'KiaSignatureFixRegular', -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-display: block;
 }
 
 svg {
