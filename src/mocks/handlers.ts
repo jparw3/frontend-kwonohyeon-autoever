@@ -11,6 +11,7 @@ export const handlers = [
     const limit = Number(url.searchParams.get("limit")) || 10;
     const offset = Number(url.searchParams.get("offset")) || 0;
     const faqCategoryID = url.searchParams.get("faqCategoryID");
+    const questionQuery = url.searchParams.get("question");
 
     const allItems = tab === "CONSULT" ? consultFaqData : usageFaqData;
     const categories =
@@ -20,7 +21,7 @@ export const handlers = [
       return new HttpResponse(null, { status: 400 });
     }
 
-    const filteredItems = faqCategoryID
+    let filteredItems = faqCategoryID
       ? allItems.filter((item) => {
           const category = categories.find(
             (cat) => cat.categoryID === faqCategoryID
@@ -32,6 +33,13 @@ export const handlers = [
             : item.categoryName === category.name;
         })
       : allItems;
+
+    if (questionQuery) {
+      const searchTerm = questionQuery.toLowerCase();
+      filteredItems = filteredItems.filter((item) =>
+        item.question.toLowerCase().includes(searchTerm)
+      );
+    }
 
     const totalRecord = filteredItems.length;
     const paginatedItems = filteredItems.slice(offset, offset + limit);
