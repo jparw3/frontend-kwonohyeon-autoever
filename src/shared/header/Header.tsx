@@ -20,8 +20,14 @@ export default function Header() {
 
   return (
     <>
-      <div className={styles.wrapper}>
-        <img className={styles.logo} src={KiaBizLogo} alt="기아 비즈 로고" />
+      <header
+        className={`${styles.wrapper} ${isScrolled ? styles.scrolled : ""}`}
+      >
+        <img
+          className={styles.logo}
+          src={"/logos/kia-biz.svg"}
+          alt="기아 비즈 로고"
+        />
         <DesktopMenu />
         <HamburgerButton
           isOpen={isMobileMenuOpen}
