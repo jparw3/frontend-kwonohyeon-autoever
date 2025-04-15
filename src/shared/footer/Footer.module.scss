@@ -5,6 +5,7 @@
   display: flex;
   background-color: $color-midnight-900;
   padding: 0 $spacing-desktop;
+  margin-top: auto; 
 
   @include mobile {
     flex-direction: column;

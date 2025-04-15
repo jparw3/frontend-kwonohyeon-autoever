@@ -1,0 +1,62 @@
+@use "@/styles/variables" as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  height: 222px;
+  max-width: $max-width;
+  margin: 0 auto;
+
+  @include mobile {
+    gap: 5.6px;
+    height: 124px;
+  }
+
+  @include tablet {
+    gap: 6.4px;
+    height: 160px;
+  }
+
+  @include desktop {
+    gap: 7.2px;
+    height: 192px;
+  }
+}
+
+.title {
+  font-family: 'KiaSignatureFixBold';
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 1.5;
+
+  @include mobile {
+    font-size: 24px;
+  }
+
+  @include tablet {
+    font-size: 32px;
+  }
+
+  @include desktop {
+    font-size: 40px;
+  }
+}
+
+.sub_title {
+  font-size: 20px;
+  line-height: 1.4;
+ 
+  @include mobile {
+    font-size: 14px;
+  }
+
+  @include tablet {
+    font-size: 16px;
+  }
+
+  @include desktop {
+    font-size: 18px;
+  }
+}
