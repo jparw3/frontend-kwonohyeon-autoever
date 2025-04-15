@@ -12,7 +12,7 @@
   align-items: center;
   padding: 0 $spacing-desktop;
 
-  @media (max-width: $breakpoint-mobile) {
+  @include mobile {
     height: $header-height-mobile;
   }
 }
@@ -21,7 +21,7 @@
   width: $logo-width-desktop;
   height: $logo-height-desktop;
 
-  @media (max-width: $breakpoint-mobile) {
+  @include mobile {
     width: $logo-width-mobile;
     height: $logo-height-mobile;
   }
@@ -82,7 +82,7 @@
     }
   }
 
-  @media (max-width: $breakpoint-mobile) {
+  @include mobile {
     display: flex; 
   }
 }
@@ -124,7 +124,7 @@
 }
 
 .menu {
-  @media (max-width: $breakpoint-mobile) {
+  @include mobile {
     display: none;
   }
 }

@@ -1,3 +1,259 @@
+@use "@/styles/variables" as *;
+@use "@/styles/color" as *;
+
 .wrapper {
   display: flex;
+  background-color: $color-midnight-900;
+  padding: 0 48px;
+
+  @include mobile {
+    flex-direction: column;
+    padding: 40px 20px;
+    gap: 24px;
+  }
+
+  @include tablet {
+    flex-direction: column;
+ 
+    padding-bottom: 44px;
+    padding-top: 34px;
+    gap: 32px;
+  }
+
+  @include desktop {
+    height: 176px;
+    flex-direction: row;
+    padding: 0 48px;
+    align-items: center;
+  }
+
+  @include desktop-large {
+    height: 176px;
+    flex-direction: row;
+    padding: 0 48px;
+    align-items: center;
+  }
+}
+
+.company_info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  @include mobile {
+    order: 2;
+  }
+
+  @include tablet {
+    order: 2;
+  }
+
+  @include desktop {
+    order: 0;
+  }
+
+  @include desktop-large {
+    order: 0;
+  }
+}
+
+.logo {
+    height: 56px;
+
+  @include mobile {
+    height: 32px;
+  }
+}
+
+.copyright {
+  font-size: 14px;
+  font-weight: 400;
+  color: $color-gray-400;
+  line-height: 1.4;
+
+  @include mobile {
+    font-size: 12px;
+  }
+
+  @include desktop {
+    .copyright_break {
+      &::after {
+        content: '\A';
+        white-space: pre;
+      }
+    }
+  }
+
+  @include desktop-large {
+    .copyright_break {
+      &::after {
+        content: ' ';
+      }
+    }
+  }
+}
+
+.company_detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include mobile {
+    order: 1;
+  }
+
+  @include tablet {
+    order: 1;
+  }
+
+  @include desktop {
+    order: 0;
+    margin-left: 48px;
+    margin-left: auto;
+  }
+
+  @include desktop-large {
+    order: 0;
+    margin-left: auto;
+  }
+}
+
+.policy {
+  display: flex;
+  gap: 16px;
+  font-size: 16px;
+  color: $color-white;
+  height: 52px;
+  align-items: center;
+
+  @include mobile {
+    font-size: 14px;
+  }
+
+  @include desktop {
+    margin-left: auto;
+  }
+
+  @include desktop-large {
+    margin-left: auto;
+  }
+}
+
+.privacy_link {
+  font-family: 'KiaSignatureFixBold';
+  text-decoration: none;
+  color: $color-white;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.address {
+  font-size: 14px;
+  color: $color-gray-400;
+  line-height: 24px;
+  font-style: normal;
+  
+
+  @include mobile {
+    font-size: 12px;
+  }
+
+}
+
+.address_item {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+
+  a {
+    color: inherit;
+  }
+}
+
+.address_row {
+  display: flex;
+  flex-wrap: wrap;
+
+  @include mobile {
+    flex-direction: column;
+
+    .address_item {
+      display: block;
+    }
+  }
+
+  @include tablet {
+    display: block;
+    line-height: 1.6;
+
+    .address_item:nth-child(1),
+    .address_item:nth-child(2) {
+      display: inline;
+    }
+    .address_item:nth-child(1) {
+      &::after {
+        content: " ";
+        margin-right: 16px;
+      }
+    }
+
+    .address_item:nth-child(3),
+    .address_item:nth-child(4) {
+      display: inline;
+      margin-top: 8px;
+    }
+    .address_item:nth-child(3) {
+      margin-right: 16px;
+    }
+
+    .address_item:nth-child(5),
+    .address_item:nth-child(6) {
+      display: inline;
+      margin-top: 8px;
+    }
+    .address_item:nth-child(5) {
+      margin-right: 16px;
+    }
+
+    .address_item:nth-child(2)::after {
+      content: "\A";
+      white-space: pre;
+    }
+    .address_item:nth-child(4)::after {
+      content: "\A";
+      white-space: pre;
+    }
+  }
+
+  @include desktop {
+    display: flex;
+    gap: 8px;
+    justify-content: end;
+
+    .address_item {
+      width: fit-content;
+    }
+  }
+
+  @include desktop-large {
+    display: flex;
+    gap: 8px;
+    justify-content: end;
+  }
+}
+
+.address_item {
+  display: inline-flex;
+  align-items: center;
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
