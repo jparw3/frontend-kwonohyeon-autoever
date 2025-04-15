@@ -1,11 +1,10 @@
 import styles from "@/shared/footer/Footer.module.scss";
-import KN from "/public/logos/kn.svg";
 
 export default function Footer() {
   return (
     <footer className={styles.wrapper}>
       <div className={styles.company_info}>
-        <img className={styles.logo} src={KN} alt="KN" />
+        <img className={styles.logo} src={"/logos/kn.svg"} alt="KN" />
         <p className={styles.copyright}>
           © 2023 KIA CORP.{" "}
           <span className={styles.copyright_break}>All Rights Reserved.</span>
