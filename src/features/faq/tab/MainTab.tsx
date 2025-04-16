@@ -1,6 +1,6 @@
 import styles from "@/features/faq/tab/MainTab.module.scss";
 
-export type MainTab = "CONSULT" | "USAGE";
+export type MainTabType = "CONSULT" | "USAGE";
 
 const MAIN_TAB = {
   CONSULT: {
@@ -14,8 +14,8 @@ const MAIN_TAB = {
 } as const;
 
 interface MainTabProps {
-  activeTab: MainTab;
-  onTabChange: (tab: MainTab) => void;
+  activeTab: MainTabType;
+  onTabChange: (tab: MainTabType) => void;
 }
 
 export default function MainTab({ activeTab, onTabChange }: MainTabProps) {
@@ -27,7 +27,7 @@ export default function MainTab({ activeTab, onTabChange }: MainTabProps) {
           className={`${styles.tab} ${
             activeTab === tab.id ? styles.active : ""
           }`}
-          onClick={() => onTabChange(tab.id as MainTab)}
+          onClick={() => onTabChange(tab.id as MainTabType)}
         >
           {tab.name}
         </li>
