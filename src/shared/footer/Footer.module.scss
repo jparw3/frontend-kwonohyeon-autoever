@@ -5,6 +5,7 @@
   display: flex;
   background-color: $color-midnight-900;
   padding: 0 $spacing-desktop;
+  margin-top: auto; 
 
   @include mobile {
     flex-direction: column;
@@ -145,7 +146,7 @@
   color: $color-gray-400;
   line-height: 24px;
   font-style: normal;
-  
+  text-wrap: pretty;
 
   @include mobile {
     font-size: 12px;

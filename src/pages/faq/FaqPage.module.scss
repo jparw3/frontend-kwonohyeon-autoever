@@ -1,3 +1,11 @@
-.wrapper {
-  background-color: transparent;
+@use "@/styles/variables" as *;
+
+.wrapper {  
+  padding: 0 $spacing-desktop;
+  min-height: 100vh;
+
+  @include mobile {
+    height: $header-height-mobile;
+    padding: 0 $spacing-mobile;
+  }
 }

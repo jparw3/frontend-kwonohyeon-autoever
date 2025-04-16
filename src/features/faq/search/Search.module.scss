@@ -1,0 +1,136 @@
+@use "@/styles/color" as *;
+@use "@/styles/variables" as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: $max-width;
+  margin: 0 auto;
+}
+
+.input_container {
+  background-color: $color-gray-10;
+  width: 100%;
+  height: 104px;
+  box-sizing: border-box;
+  padding: 24px;
+}
+
+.input_box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: $color-white;
+  border: 1px solid $color-midnight-900;
+
+  @include mobile {
+    height: 40px;
+  }
+
+  @include tablet {
+    height: 48px;
+  }
+
+  @include desktop {
+    height: 56px;
+  }
+}
+
+.input {
+  font-family: "KiaSignatureFixBold";
+  font-size: 18px;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 0 98px 0 16px;
+  color: $color-midnight-900;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: $color-gray-300;
+  }
+
+  @include mobile {
+    padding: 0 66px 0 16px;
+    font-size: 14px;
+  }
+
+  @include tablet {
+    padding: 0 86px 0 16px;
+    font-size: 16px;
+  }
+
+  @include desktop {
+    padding: 0 94px 0 16px;
+  }
+}
+
+.search_icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  @include mobile {
+    width: 24px;
+    height: 24px;
+  }
+
+  @include tablet {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.clear_icon {
+  position: absolute;
+  right: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search_result_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search_result_count {
+  font-size: 24px;
+  color: $color-midnight-900;
+  font-family: "KiaSignatureFixBold";
+
+  @include mobile {
+    font-size: 16px;
+  }
+
+  @include tablet {
+    font-size: 18px;
+  }
+
+  @include desktop {
+    font-size: 20px;
+  }
+}
+
+.search_result_reset_box {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+ gap: 2px;
+ 
+  @include mobile {
+    font-size: 14px;
+  }
+}
+
+.init_icon {
+  @include mobile {
+    width: 20px;
+    height: 20px;
+  }
+  
+}
