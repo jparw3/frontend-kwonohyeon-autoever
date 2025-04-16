@@ -20,6 +20,7 @@
   @include tablet {
     height: 46px;
     font-size: 16px;
+    margin-bottom: 32px;
   }
 
   @include desktop {
@@ -52,6 +53,7 @@
       font-weight: bold;
       font-family: "KiaSignatureFixBold";
       background-color: $color-midnight-900;
+      border: 1px solid $color-midnight-900;
       color: $color-white;
     }
 }
