@@ -3,6 +3,7 @@ import styles from "@/pages/faq/FaqPage.module.scss";
 import Title from "@/features/faq/title/Title";
 import MainTab, { MainTabType } from "@/features/faq/tab/MainTab";
 import Search from "@/features/faq/search/Search";
+import FilterCategory from "@/features/faq/filter/FilterCategory";
 import { useFaqs } from "@/hooks/useFaqs";
 import { consultCategoryData, usageCategoryData } from "@/mocks/data/category";
 
@@ -51,19 +52,11 @@ export default function FaqPage() {
         onReset={handleReset}
         searchResultCount={data?.pageInfo.totalRecord ?? 0}
       />
-      <div className={styles.categories}>
-        {categories.map((category) => (
-          <button
-            key={category.categoryID}
-            className={`${styles.category} ${
-              selectedCategory === category.categoryID ? styles.active : ""
-            }`}
-            onClick={() => setSelectedCategory(category.categoryID)}
-          >
-            {category.name}
-          </button>
-        ))}
-      </div>
+      <FilterCategory
+        categories={categories}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
 
       {(isLoading || isFetching) && (
         <div className={styles.loading}>로딩 중...</div>
