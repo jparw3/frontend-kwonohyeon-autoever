@@ -16,6 +16,11 @@
     height: $header-height-mobile;
     padding: 0 $spacing-mobile;
   }
+
+  @include tablet {
+    height: $header-height-mobile;
+    padding: 0 $spacing-mobile;
+  }
 }
 
 .scrolled {
@@ -27,6 +32,11 @@
   height: $logo-height-desktop;
 
   @include mobile {
+    width: $logo-width-mobile;
+    height: $logo-height-mobile;
+  }
+
+  @include tablet {
     width: $logo-width-mobile;
     height: $logo-height-mobile;
   }
@@ -90,6 +100,10 @@
   @include mobile {
     display: flex; 
   }
+
+  @include tablet {
+    display: flex;
+  }
 }
 
 .mobile_menu {
@@ -130,6 +144,10 @@
 
 .menu {
   @include mobile {
+    display: none;
+  }
+
+  @include tablet {
     display: none;
   }
 }

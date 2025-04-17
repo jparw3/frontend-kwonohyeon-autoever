@@ -41,4 +41,8 @@
   @include mobile {
     display: flex; 
   }
+
+  @include tablet {
+    display: flex;
+  }
 } 

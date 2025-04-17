@@ -1,46 +1,85 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/pages/faq/FaqPage.module.scss";
 import Title from "@/features/faq/title/Title";
 import MainTab, { MainTabType } from "@/features/faq/tab/MainTab";
 import Search from "@/features/faq/search/Search";
+import FilterCategory from "@/features/faq/filter/FilterCategory";
+import List from "@/features/faq/list/List";
 import { useFaqs } from "@/hooks/useFaqs";
 import { consultCategoryData, usageCategoryData } from "@/mocks/data/category";
+import { FaqResponse } from "@/mocks/data/faq";
 
 export default function FaqPage() {
   const [activeTab, setActiveTab] = useState<MainTabType>("CONSULT");
   const [searchInput, setSearchInput] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [offset, setOffset] = useState(0);
+  const [accumulatedItems, setAccumulatedItems] = useState<
+    FaqResponse["items"]
+  >([]);
 
-  const { data, isLoading, isFetching, refetch } = useFaqs({
+  const {
+    data: faqs,
+    isLoading,
+    isFetching,
+    refetch,
+  } = useFaqs({
     tab: activeTab,
     categoryID: selectedCategory ?? undefined,
     question: searchInput,
     offset,
   });
 
+  useEffect(() => {
+    if (!faqs) return;
+
+    setAccumulatedItems((prev) =>
+      offset === 0 ? faqs.items : [...prev, ...faqs.items]
+    );
+  }, [faqs, offset]);
+
   const categories =
     activeTab === "CONSULT" ? consultCategoryData : usageCategoryData;
+  const accumulatedFaqs = faqs ? { ...faqs, items: accumulatedItems } : null;
+
+  const resetFilters = () => {
+    setOffset(0);
+    setAccumulatedItems([]);
+  };
 
   const handleSearch = (value: string) => {
     setSearchInput(value);
-    setOffset(0);
+    resetFilters();
     refetch();
   };
 
   const handleReset = () => {
     setSearchInput("");
-    setOffset(0);
+    resetFilters();
     refetch();
   };
 
   const handleTabChange = (tab: MainTabType) => {
     setActiveTab(tab);
-    setOffset(0);
     setSelectedCategory(null);
     setSearchInput("");
+    resetFilters();
     refetch();
   };
+
+  const handleCategoryChange = (categoryId: string | null) => {
+    setSelectedCategory(categoryId);
+    resetFilters();
+    refetch();
+  };
+
+  const handleLoadMore = () => {
+    if (faqs?.pageInfo.nextOffset) {
+      setOffset(faqs.pageInfo.nextOffset);
+    }
+  };
+
+  const renderLoading = () => <div className={styles.loading}>로딩 중...</div>;
 
   return (
     <div className={styles.wrapper}>
@@ -49,36 +88,20 @@ export default function FaqPage() {
       <Search
         onSearch={handleSearch}
         onReset={handleReset}
-        searchResultCount={data?.pageInfo.totalRecord ?? 0}
+        searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
       />
-      <div className={styles.categories}>
-        {categories.map((category) => (
-          <button
-            key={category.categoryID}
-            className={`${styles.category} ${
-              selectedCategory === category.categoryID ? styles.active : ""
-            }`}
-            onClick={() => setSelectedCategory(category.categoryID)}
-          >
-            {category.name}
-          </button>
-        ))}
-      </div>
-
-      {(isLoading || isFetching) && (
-        <div className={styles.loading}>로딩 중...</div>
-      )}
-
-      <div className={styles.faqs}>
-        {data?.items.map((faq) => (
-          <div key={faq.id} className={styles.faq_item}>
-            {faq.question}
-          </div>
-        ))}
-      </div>
-
-      {data?.pageInfo.nextOffset && (
-        <button className={styles.load_more}>더보기</button>
+      <FilterCategory
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={handleCategoryChange}
+      />
+      {(isLoading || isFetching) && renderLoading()}
+      {accumulatedFaqs && (
+        <List
+          faqs={accumulatedFaqs}
+          activeTab={activeTab}
+          onLoadMore={handleLoadMore}
+        />
       )}
     </div>
   );
