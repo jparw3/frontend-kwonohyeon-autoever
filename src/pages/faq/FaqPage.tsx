@@ -11,6 +11,7 @@ import AppDownload from "@/features/faq/app-download/AppDownload";
 import { useFaqs } from "@/hooks/useFaqs";
 import { consultCategoryData, usageCategoryData } from "@/mocks/data/category";
 import { FaqResponse } from "@/mocks/data/faq";
+import ScrollToTopButton from "@/shared/floating-button/ScrollToTopButton";
 
 export default function FaqPage() {
   const [activeTab, setActiveTab] = useState<MainTabType>("CONSULT");
@@ -109,6 +110,7 @@ export default function FaqPage() {
       <ServiceInquiry />
       <ProcessInfo />
       <AppDownload />
+      <ScrollToTopButton />
     </div>
   );
 }
