@@ -1,12 +1,6 @@
 @use "@/styles/variables" as *;
 
 .wrapper {  
-  padding: 0 $spacing-desktop;
+  padding: 0 $spacing-desktop 80px;
   min-height: 100vh;
-
-  @include mobile {
-    height: $header-height-mobile;
-    padding: 0 $spacing-mobile;
-    min-height: fit-content;
-  }
 }
