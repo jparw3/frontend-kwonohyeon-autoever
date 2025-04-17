@@ -28,56 +28,56 @@ export default function List({ faqs, activeTab, onLoadMore }: ListProps) {
     }
   };
 
+  const getCategoryName = (faq: FaqResponse["items"][0]) => {
+    return activeTab === "CONSULT" ? faq.subCategoryName : faq.categoryName;
+  };
+
+  const renderCategoryBox = (faq: FaqResponse["items"][0]) => (
+    <div className={styles.category_box}>
+      <div className={styles.category}>{getCategoryName(faq)}</div>
+      <ArrowRightIcon
+        className={styles.category_arrow}
+        width={16}
+        height={16}
+        color="#b4b9bc"
+      />
+      <div className={styles.sub_category}>{faq.subCategoryName}</div>
+    </div>
+  );
+
+  const renderFaqItem = (faq: FaqResponse["items"][0]) => (
+    <li
+      key={faq.id}
+      className={styles.faq_container}
+      onClick={() => handleClick(faq.id)}
+      aria-expanded={openId === faq.id}
+    >
+      <div className={styles.faq_item}>
+        {renderCategoryBox(faq)}
+        <div className={styles.question}>{faq.question}</div>
+        <ArrowDownIcon className={styles.arrow_icon} />
+      </div>
+      <div
+        className={styles.answer}
+        dangerouslySetInnerHTML={{ __html: faq.answer }}
+        data-open={openId === faq.id}
+      />
+    </li>
+  );
+
+  const renderLoadMoreButton = () => (
+    <button type="button" className={styles.load_more} onClick={onLoadMore}>
+      <PlusIcon className={styles.plus_icon} />
+      더보기
+    </button>
+  );
+
   const hasMoreData = faqs.items.length < faqs.pageInfo.totalRecord;
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.faqs}>
-        {faqs.items.map((faq) => (
-          <li
-            key={faq.id}
-            className={styles.faq_container}
-            onClick={() => handleClick(faq.id)}
-            aria-expanded={openId === faq.id}
-          >
-            <div className={styles.faq_item}>
-              <div className={styles.category_box}>
-                <div className={styles.category}>
-                  {activeTab === "CONSULT"
-                    ? faq.subCategoryName
-                    : faq.categoryName}
-                </div>
-                <ArrowRightIcon
-                  className={styles.category_arrow}
-                  width={16}
-                  height={16}
-                  color="#b4b9bc"
-                />
-                <div className={styles.sub_category}>
-                  {activeTab === "CONSULT"
-                    ? faq.subCategoryName
-                    : faq.subCategoryName}
-                </div>
-              </div>
-
-              <div className={styles.question}>{faq.question}</div>
-              <ArrowDownIcon className={styles.arrow_icon} />
-            </div>
-            <div
-              className={styles.answer}
-              dangerouslySetInnerHTML={{ __html: faq.answer }}
-              data-open={openId === faq.id}
-            />
-          </li>
-        ))}
-      </div>
-
-      {hasMoreData && (
-        <button type="button" className={styles.load_more} onClick={onLoadMore}>
-          <PlusIcon className={styles.plus_icon} />
-          더보기
-        </button>
-      )}
+      <div className={styles.faqs}>{faqs.items.map(renderFaqItem)}</div>
+      {hasMoreData && renderLoadMoreButton()}
     </div>
   );
 }

@@ -16,33 +16,41 @@ export default function FilterCategory({
   selectedCategory,
   onCategoryChange,
 }: FilterCategoryProps) {
+  
+  const renderRadioButton = (
+    value: string | "ALL",
+    label: string,
+    isChecked: boolean
+  ) => (
+    <label className={styles.filter_label}>
+      <input
+        type="radio"
+        name="filterCategory"
+        className={styles.filter_radio}
+        value={value}
+        checked={isChecked}
+        onChange={() => onCategoryChange(value === "ALL" ? null : value)}
+      />
+      <i className={styles.filter_text}>{label}</i>
+    </label>
+  );
+
+  const renderAllCategoryButton = () =>
+    renderRadioButton("ALL", "전체", selectedCategory === null);
+
+  const renderCategoryButtons = () =>
+    categories.map((category) =>
+      renderRadioButton(
+        category.categoryID,
+        category.name,
+        selectedCategory === category.categoryID
+      )
+    );
+
   return (
     <div className={styles.wrapper}>
-      <label className={styles.filter_label}>
-        <input
-          type="radio"
-          name="filterCategory"
-          className={styles.filter_radio}
-          value="ALL"
-          checked={selectedCategory === null}
-          onChange={() => onCategoryChange(null)}
-        />
-        <i className={styles.filter_text}>전체</i>
-      </label>
-
-      {categories.map((category) => (
-        <label key={category.categoryID} className={styles.filter_label}>
-          <input
-            type="radio"
-            name="filterCategory"
-            className={styles.filter_radio}
-            value={category.categoryID}
-            checked={selectedCategory === category.categoryID}
-            onChange={() => onCategoryChange(category.categoryID)}
-          />
-          <i className={styles.filter_text}>{category.name}</i>
-        </label>
-      ))}
+      {renderAllCategoryButton()}
+      {renderCategoryButtons()}
     </div>
   );
 }

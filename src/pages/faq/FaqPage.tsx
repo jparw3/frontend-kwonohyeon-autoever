@@ -31,35 +31,45 @@ export default function FaqPage() {
   });
 
   useEffect(() => {
-    if (faqs) {
-      if (offset === 0) {
-        setAccumulatedItems(faqs.items);
-      } else {
-        setAccumulatedItems((prev) => [...prev, ...faqs.items]);
-      }
-    }
+    if (!faqs) return;
+
+    setAccumulatedItems((prev) =>
+      offset === 0 ? faqs.items : [...prev, ...faqs.items]
+    );
   }, [faqs, offset]);
 
   const categories =
     activeTab === "CONSULT" ? consultCategoryData : usageCategoryData;
+  const accumulatedFaqs = faqs ? { ...faqs, items: accumulatedItems } : null;
+
+  const resetFilters = () => {
+    setOffset(0);
+    setAccumulatedItems([]);
+  };
 
   const handleSearch = (value: string) => {
     setSearchInput(value);
-    setOffset(0);
+    resetFilters();
     refetch();
   };
 
   const handleReset = () => {
     setSearchInput("");
-    setOffset(0);
+    resetFilters();
     refetch();
   };
 
   const handleTabChange = (tab: MainTabType) => {
     setActiveTab(tab);
-    setOffset(0);
     setSelectedCategory(null);
     setSearchInput("");
+    resetFilters();
+    refetch();
+  };
+
+  const handleCategoryChange = (categoryId: string | null) => {
+    setSelectedCategory(categoryId);
+    resetFilters();
     refetch();
   };
 
@@ -69,19 +79,7 @@ export default function FaqPage() {
     }
   };
 
-  const handleCategoryChange = (categoryId: string | null) => {
-    setSelectedCategory(categoryId);
-    setOffset(0);
-    setAccumulatedItems([]);
-    refetch();
-  };
-
-  const accumulatedFaqs = faqs
-    ? {
-        ...faqs,
-        items: accumulatedItems,
-      }
-    : null;
+  const renderLoading = () => <div className={styles.loading}>로딩 중...</div>;
 
   return (
     <div className={styles.wrapper}>
@@ -97,11 +95,7 @@ export default function FaqPage() {
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
-
-      {(isLoading || isFetching) && (
-        <div className={styles.loading}>로딩 중...</div>
-      )}
-
+      {(isLoading || isFetching) && renderLoading()}
       {accumulatedFaqs && (
         <List
           faqs={accumulatedFaqs}
