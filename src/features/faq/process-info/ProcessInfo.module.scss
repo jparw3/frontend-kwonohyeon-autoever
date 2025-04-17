@@ -1,0 +1,138 @@
+@use "@/styles/color" as *;
+@use "@/styles/variables" as *;
+
+.wrapper {
+  max-width: $max-width;
+  margin: 64px auto;
+
+  @include mobile {
+    margin: 32px auto;
+  }
+
+  @include tablet {
+    margin: 48px auto;
+  }
+}
+
+.title {
+  font-size: 24px;
+  font-family: "KiaSignatureFixBold";
+  color: $color-midnight-900;
+  margin-bottom: 32px;
+
+  @include mobile {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  @include tablet {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+}
+
+.steps_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  @include tablet {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+.step_item {
+  display: flex;
+  flex-direction: column;
+  max-width: 220px;
+
+  @include mobile {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 100%;
+    gap: 16px;
+  }
+
+  @include tablet {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 100%;
+    gap: 16px;
+  }
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  color: $color-gray-400;
+  flex-shrink: 0;
+
+  @include mobile {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0;
+  }
+
+  @include tablet {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 0;
+  }
+}
+
+.text_content {
+  display: flex;
+  flex-direction: column;
+}
+
+.step_title {
+  font-size: 18px;
+  font-family: "KiaSignatureFixBold";
+  color: $color-midnight-900;
+  margin-bottom: 8px;
+
+  @include mobile {
+    font-size: 16px;
+  }
+}
+
+.step_description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: $color-gray-700;
+  word-break: keep-all;
+
+  @include mobile {
+    font-size: 14px;
+  }
+
+  @include tablet {
+    font-size: 16px;
+  }
+}
+
+.arrow_icon_desktop {
+  width: 24px;
+  height: 24px;
+  color: $color-gray-300;
+  margin: 0 24px;
+  flex-shrink: 0;
+  align-self: center;
+
+  @include mobile {
+    display: none;
+  }
+
+  @include tablet {
+    display: none;
+  }
+}

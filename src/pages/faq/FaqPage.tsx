@@ -6,6 +6,7 @@ import Search from "@/features/faq/search/Search";
 import FilterCategory from "@/features/faq/filter/FilterCategory";
 import List from "@/features/faq/list/List";
 import ServiceInquiry from "@/features/faq/service-inquiry/ServiceInquiry";
+import ProcessInfo from "@/features/faq/process-info/ProcessInfo";
 import { useFaqs } from "@/hooks/useFaqs";
 import { consultCategoryData, usageCategoryData } from "@/mocks/data/category";
 import { FaqResponse } from "@/mocks/data/faq";
@@ -105,6 +106,7 @@ export default function FaqPage() {
         />
       )}
       <ServiceInquiry />
+      <ProcessInfo />
     </div>
   );
 }
