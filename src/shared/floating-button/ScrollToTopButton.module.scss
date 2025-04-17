@@ -1,0 +1,48 @@
+@use "@/styles/color" as *;
+@use "@/styles/variables" as *;
+
+.wrapper {
+  position: fixed;
+  bottom: 200px;
+  right: 20px;
+  z-index: 100;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: $color-white;
+  border: none;
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,.12);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: $color-gray-50;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @include mobile {
+    width: 40px;
+    height: 40px;
+    bottom: 380px;
+  }
+
+  @include tablet {
+    width: 48px;
+    height: 48px;
+    bottom: 200px;
+  }
+}
+
+.icon {
+  width: 70%;
+  height: 70%;
+  color: $color-midnight-900;
+}
