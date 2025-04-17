@@ -18,11 +18,12 @@ export default function FilterCategory({
 }: FilterCategoryProps) {
   
   const renderRadioButton = (
+    key: string,
     value: string | "ALL",
     label: string,
     isChecked: boolean
   ) => (
-    <label className={styles.filter_label}>
+    <label key={key} className={styles.filter_label}>
       <input
         type="radio"
         name="filterCategory"
@@ -36,11 +37,12 @@ export default function FilterCategory({
   );
 
   const renderAllCategoryButton = () =>
-    renderRadioButton("ALL", "전체", selectedCategory === null);
+    renderRadioButton("ALL-key", "ALL", "전체", selectedCategory === null);
 
   const renderCategoryButtons = () =>
     categories.map((category) =>
       renderRadioButton(
+        category.categoryID,
         category.categoryID,
         category.name,
         selectedCategory === category.categoryID
