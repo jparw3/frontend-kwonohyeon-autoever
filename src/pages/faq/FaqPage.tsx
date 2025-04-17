@@ -51,8 +51,7 @@ export default function FaqPage() {
     setAccumulatedItems([]);
   };
 
-  const handleSearch = (value: string) => {
-    setSearchInput(value);
+  const handleSearch = () => {
     resetFilters();
     refetch();
   };
@@ -91,6 +90,7 @@ export default function FaqPage() {
       <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
       <Search
         searchInput={searchInput}
+        setSearchInput={setSearchInput}
         onSearch={handleSearch}
         onReset={handleReset}
         searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
