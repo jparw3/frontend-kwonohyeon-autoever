@@ -2,7 +2,7 @@ import styles from "@/features/faq/list/List.module.scss";
 import { FaqResponse } from "@/mocks/data/faq";
 import { useState } from "react";
 import ArrowDownIcon from "@/assets/icons/ArrowDownIcon";
-import PlusIcon from "@/assets/icons/PlusIcon";
+import LoadMoreButton from "@/shared/buttons/LoadMoreButton";
 import { MainTabType } from "@/features/faq/tab/MainTab";
 import ArrowRightIcon from "@/assets/icons/ArrowRightIcon";
 import { incrementFaqViewCount } from "@/api/faq";
@@ -65,19 +65,12 @@ export default function List({ faqs, activeTab, onLoadMore }: ListProps) {
     </li>
   );
 
-  const renderLoadMoreButton = () => (
-    <button type="button" className={styles.load_more} onClick={onLoadMore}>
-      <PlusIcon className={styles.plus_icon} />
-      더보기
-    </button>
-  );
-
   const hasMoreData = faqs.items.length < faqs.pageInfo.totalRecord;
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.faqs}>{faqs.items.map(renderFaqItem)}</div>
-      {hasMoreData && renderLoadMoreButton()}
+      {hasMoreData && <LoadMoreButton onClick={onLoadMore} />}
     </div>
   );
 }
