@@ -1,0 +1,132 @@
+@use "@/styles/color" as *;
+@use "@/styles/variables" as *;
+
+.wrapper {
+  max-width: $max-width;
+  margin: 64px auto;
+
+  @include mobile {
+    margin: 32px auto;
+  }
+  
+  @include tablet {
+    margin: 48px auto;
+  }
+}
+
+.title {
+  font-size: 24px;
+  font-family: "KiaSignatureFixBold";
+  color: $color-midnight-900;
+  margin-bottom: 24px;
+
+  @include mobile {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+  
+  @include tablet {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.inquiry_boxes {
+  display: flex;
+  gap: 24px;
+
+  @include mobile {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  @include tablet {
+    flex-wrap: wrap;
+    gap: 16px;
+
+    .box:nth-child(1),
+    .box:nth-child(2) {
+      flex-basis: calc(50% - 8px);
+    }
+
+    .box:nth-child(3) {
+      flex-basis: 100%;
+    }
+  }
+}
+
+.box {
+  height: 80px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  box-sizing: border-box;
+  padding: 0 24px;
+  border: 1px solid $color-midnight-900;
+  text-decoration: none;
+  color: $color-midnight-900;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: $color-gray-50;
+  }
+
+  @include mobile {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  @include tablet {
+    padding: 20px;
+    gap: 14px;
+  }
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+
+  @include mobile {
+    width: 32px;
+    height: 32px;
+  }
+  
+  @include tablet {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.text {
+  font-size: 18px;
+  font-family: "KiaSignatureFixBold";
+  line-height: 1.5;
+  
+  @include mobile {
+    font-size: 14px;
+  }
+  
+  @include tablet {
+    font-size: 16px;
+  }
+}
+
+.sub_text {
+  display: block;
+  font-size: 14px;
+  font-family: "KiaSignatureFixRegular";
+  color: $color-gray-500;
+  margin-top: 4px;
+  
+  @include mobile {
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  
+  @include tablet {
+    font-size: 13px;
+  }
+}
