@@ -90,6 +90,7 @@ export default function FaqPage() {
       <Title />
       <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
       <Search
+        searchInput={searchInput}
         onSearch={handleSearch}
         onReset={handleReset}
         searchResultCount={faqs?.pageInfo.totalRecord ?? 0}

@@ -1,10 +1,10 @@
+import React from "react";
 import styles from "@/features/faq/process-info/ProcessInfo.module.scss";
 import QuestionChatIcon from "@/assets/icons/QuestionChatIcon";
 import UserSettingsIcon from "@/assets/icons/UserSettingsIcon";
 import UserAddIcon from "@/assets/icons/UserAddIcon";
 import CarParkingIcon from "@/assets/icons/CarParkingIcon";
 import ArrowRightIcon from "@/assets/icons/ArrowRightIcon";
-import React from "react";
 
 interface ProcessStep {
   id: number;
