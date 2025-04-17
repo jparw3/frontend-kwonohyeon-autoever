@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "@/pages/faq/FaqPage.module.scss";
-import Title from "@/features/faq/title/Title";
+import Title from "@/shared/title/Title";
 import MainTab, { MainTabType } from "@/features/faq/tab/MainTab";
 import Search from "@/features/faq/search/Search";
 import FilterCategory from "@/features/faq/filter/FilterCategory";
@@ -86,7 +86,10 @@ export default function FaqPage() {
 
   return (
     <div className={styles.wrapper}>
-      <Title />
+      <Title
+        title="자주 묻는 질문"
+        subTitle="궁금하신 내용을 빠르게 찾아보세요."
+      />
       <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
       <Search
         searchInput={searchInput}
