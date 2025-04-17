@@ -17,28 +17,26 @@
 
 .faq_container {
   list-style: none;
+  width: 100%;
+  border-bottom: 1px solid $color-gray-100;
   overflow: hidden;
 
   &[aria-expanded="true"] {
     background-color: $color-gray-10;
   }
 }
-  
+
 .faq_item {
   display: flex;
   width: 100%;
   box-sizing: border-box;
   padding: 24px 48px 24px 24px;
-  border-bottom: 1px solid $color-gray-100;
   font-size: 16px;
   line-height: 1.5;
   color: $color-midnight-900;
   cursor: pointer;
   position: relative;
-
-  &[aria-expanded="true"] {
-    background-color: #F8F8F8;
-  }
+  transition: background-color 0.3s ease;
 
   @include mobile {
     flex-direction: column;
@@ -65,11 +63,10 @@
   right: 24px;
   top: 50%;
   transform: translateY(-50%);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  [aria-expanded="true"] & {
-    transform: translateY(-50%) rotate(180deg);
-  }
+  transition: transform 0.3s ease;
+  color: $color-gray-400;
+  width: 32px;
+  height: 32px;
 
   @include mobile {
     width: 24px;
@@ -82,53 +79,47 @@
     height: 28px;
     right: 14px;
   }
+}
 
-  @include desktop {
-    width: 32px;
-    height: 32px;
-  }
-
-  @include desktop-large {
-    width: 32px;
-    height: 32px;
-  }
+[aria-expanded="true"] .arrow_icon {
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .category_box {
   display: flex;
-  
+
   @include mobile {
     flex-direction: row;
     gap: 4px;
     align-items: center;
     margin-bottom: 4px;
-  
+
     .category_arrow {
       width: 16px;
       height: 16px;
       color: $color-gray-500;
     }
   }
-  
+
   @include tablet {
     flex-direction: row;
     gap: 4px;
     align-items: center;
     margin-bottom: 4px;
-  
+    
     .category_arrow {
       width: 16px;
       height: 16px;
       color: $color-gray-500;
     }
   }
-  
+
   @include desktop {
     .category_arrow {
       display: none;
     }
   }
-  
+
   @include desktop-large {
     .category_arrow {
       display: none;
@@ -208,7 +199,7 @@
     min-width: 168px;
   }
 }
-  
+
 .question {
   font-size: 20px;
   line-height: 1.5;
@@ -239,8 +230,13 @@
   max-height: 0;
   opacity: 0;
   transform-origin: top;
-  transform: translateY(-10px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition:
+    max-height 0.7s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 0.4s ease,
+    padding 0.5s ease;
+  padding: 0 32px;
+  box-sizing: border-box;
+  width: 100%;
   font-size: 18px;
   line-height: 1.6;
   color: $color-midnight-900;
@@ -249,11 +245,10 @@
   p {
     margin: 18px 0;
   }
-  
+
   &[data-open="true"] {
-    max-height: 2000px;
+    max-height: 1000px;
     opacity: 1;
-    transform: translateY(0);
     padding: 24px 32px;
 
     @include mobile {
@@ -265,5 +260,13 @@
       font-size: 16px;
       padding: 16px 0;
     }
+  }
+
+  @include mobile {
+    padding: 0;
+  }
+
+  @include tablet {
+    padding: 0;
   }
 }

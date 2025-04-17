@@ -18,10 +18,14 @@ export default function List({ faqs, activeTab, onLoadMore }: ListProps) {
 
   const handleClick = async (id: number) => {
     try {
-      if (openId !== id) {
-        await incrementFaqViewCount(id);
+      if (openId === id) {
+        setOpenId(null);
+      } else {
+        if (openId !== id) {
+          await incrementFaqViewCount(id);
+        }
+        setOpenId(id);
       }
-      setOpenId(openId === id ? null : id);
     } catch (error) {
       console.error("Failed to increment view count:", error);
       setOpenId(openId === id ? null : id);
@@ -49,10 +53,9 @@ export default function List({ faqs, activeTab, onLoadMore }: ListProps) {
     <li
       key={faq.id}
       className={styles.faq_container}
-      onClick={() => handleClick(faq.id)}
       aria-expanded={openId === faq.id}
     >
-      <div className={styles.faq_item}>
+      <div className={styles.faq_item} onClick={() => handleClick(faq.id)}>
         {renderCategoryBox(faq)}
         <div className={styles.question}>{faq.question}</div>
         <ArrowDownIcon className={styles.arrow_icon} />
