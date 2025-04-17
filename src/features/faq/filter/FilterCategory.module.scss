@@ -1,9 +1,12 @@
 @use "@/styles/color" as *;
+@use "@/styles/variables" as *;
 
 .wrapper {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 20px;
-
+  max-width: $max-width;
+  margin: 0 auto 16px auto;
 }
 
 .filter_label {
@@ -28,6 +31,16 @@
   input[type="radio"]:checked + & {
     background-color: $color-midnight-900;
     color: $color-white;
+  }
+
+  @include mobile {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  @include tablet {
+    font-size: 16px;
+    padding: 12px 14px;
   }
 }
 

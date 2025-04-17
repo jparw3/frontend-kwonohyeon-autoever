@@ -8,18 +8,14 @@ interface Category {
 interface FilterCategoryProps {
   categories: Category[];
   selectedCategory: string | null;
-  setSelectedCategory: (categoryID: string | null) => void;
+  onCategoryChange: (categoryID: string | null) => void;
 }
 
 export default function FilterCategory({
   categories,
   selectedCategory,
-  setSelectedCategory,
+  onCategoryChange,
 }: FilterCategoryProps) {
-  const handleCategoryChange = (categoryID: string | null) => {
-    setSelectedCategory(categoryID);
-  };
-
   return (
     <div className={styles.wrapper}>
       <label className={styles.filter_label}>
@@ -29,7 +25,7 @@ export default function FilterCategory({
           className={styles.filter_radio}
           value="ALL"
           checked={selectedCategory === null}
-          onChange={() => handleCategoryChange(null)}
+          onChange={() => onCategoryChange(null)}
         />
         <i className={styles.filter_text}>전체</i>
       </label>
@@ -42,7 +38,7 @@ export default function FilterCategory({
             className={styles.filter_radio}
             value={category.categoryID}
             checked={selectedCategory === category.categoryID}
-            onChange={() => handleCategoryChange(category.categoryID)}
+            onChange={() => onCategoryChange(category.categoryID)}
           />
           <i className={styles.filter_text}>{category.name}</i>
         </label>

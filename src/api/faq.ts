@@ -30,3 +30,10 @@ export const fetchFaqs = async ({
   const response = await fetch(`/faq?${params.toString()}`);
   return response.json();
 };
+
+export const incrementFaqViewCount = async (id: number) => {
+  const response = await fetch(`/faq/${id}/viewCount`, {
+    method: "POST",
+  });
+  return response.json();
+};

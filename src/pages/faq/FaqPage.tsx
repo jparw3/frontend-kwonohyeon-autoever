@@ -1,24 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/pages/faq/FaqPage.module.scss";
 import Title from "@/features/faq/title/Title";
 import MainTab, { MainTabType } from "@/features/faq/tab/MainTab";
 import Search from "@/features/faq/search/Search";
 import FilterCategory from "@/features/faq/filter/FilterCategory";
+import List from "@/features/faq/list/List";
 import { useFaqs } from "@/hooks/useFaqs";
 import { consultCategoryData, usageCategoryData } from "@/mocks/data/category";
+import { FaqResponse } from "@/mocks/data/faq";
 
 export default function FaqPage() {
   const [activeTab, setActiveTab] = useState<MainTabType>("CONSULT");
   const [searchInput, setSearchInput] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [offset, setOffset] = useState(0);
+  const [accumulatedItems, setAccumulatedItems] = useState<
+    FaqResponse["items"]
+  >([]);
 
-  const { data, isLoading, isFetching, refetch } = useFaqs({
+  const {
+    data: faqs,
+    isLoading,
+    isFetching,
+    refetch,
+  } = useFaqs({
     tab: activeTab,
     categoryID: selectedCategory ?? undefined,
     question: searchInput,
     offset,
   });
+
+  useEffect(() => {
+    if (faqs) {
+      if (offset === 0) {
+        setAccumulatedItems(faqs.items);
+      } else {
+        setAccumulatedItems((prev) => [...prev, ...faqs.items]);
+      }
+    }
+  }, [faqs, offset]);
 
   const categories =
     activeTab === "CONSULT" ? consultCategoryData : usageCategoryData;
@@ -43,6 +63,26 @@ export default function FaqPage() {
     refetch();
   };
 
+  const handleLoadMore = () => {
+    if (faqs?.pageInfo.nextOffset) {
+      setOffset(faqs.pageInfo.nextOffset);
+    }
+  };
+
+  const handleCategoryChange = (categoryId: string | null) => {
+    setSelectedCategory(categoryId);
+    setOffset(0);
+    setAccumulatedItems([]);
+    refetch();
+  };
+
+  const accumulatedFaqs = faqs
+    ? {
+        ...faqs,
+        items: accumulatedItems,
+      }
+    : null;
+
   return (
     <div className={styles.wrapper}>
       <Title />
@@ -50,28 +90,24 @@ export default function FaqPage() {
       <Search
         onSearch={handleSearch}
         onReset={handleReset}
-        searchResultCount={data?.pageInfo.totalRecord ?? 0}
+        searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
       />
       <FilterCategory
         categories={categories}
         selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
+        onCategoryChange={handleCategoryChange}
       />
 
       {(isLoading || isFetching) && (
         <div className={styles.loading}>로딩 중...</div>
       )}
 
-      <div className={styles.faqs}>
-        {data?.items.map((faq) => (
-          <div key={faq.id} className={styles.faq_item}>
-            {faq.question}
-          </div>
-        ))}
-      </div>
-
-      {data?.pageInfo.nextOffset && (
-        <button className={styles.load_more}>더보기</button>
+      {accumulatedFaqs && (
+        <List
+          faqs={accumulatedFaqs}
+          activeTab={activeTab}
+          onLoadMore={handleLoadMore}
+        />
       )}
     </div>
   );
