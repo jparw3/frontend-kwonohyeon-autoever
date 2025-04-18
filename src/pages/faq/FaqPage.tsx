@@ -12,6 +12,7 @@ import { useFaqs } from "@/hooks/useFaqs";
 import { consultCategoryData, usageCategoryData } from "@/mocks/data/category";
 import { FaqResponse } from "@/mocks/data/faq";
 import ScrollToTopButton from "@/shared/floating-button/ScrollToTopButton";
+import { FaqErrorBoundary } from "@/features/faq/error/FaqErrorBoundary";
 
 export default function FaqPage() {
   const [activeTab, setActiveTab] = useState<MainTabType>("CONSULT");
@@ -100,28 +101,30 @@ export default function FaqPage() {
         title="자주 묻는 질문"
         subTitle="궁금하신 내용을 빠르게 찾아보세요."
       />
-      <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
-      <Search
-        searchQuery={searchQuery}
-        onSearch={handleSearch}
-        onReset={handleReset}
-        searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
-      />
-      <FilterCategory
-        categories={categories}
-        selectedCategory={selectedCategory}
-        onCategoryChange={handleCategoryChange}
-      />
-
-      {accumulatedFaqs && (
-        <List
-          faqs={accumulatedFaqs}
-          activeTab={activeTab}
-          onLoadMore={handleLoadMore}
-          isLoading={isLoading || isFetching}
-          isEmpty={faqs?.items.length === 0 && searchQuery !== ""}
+      <FaqErrorBoundary>
+        <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
+        <Search
+          searchQuery={searchQuery}
+          onSearch={handleSearch}
+          onReset={handleReset}
+          searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
         />
-      )}
+        <FilterCategory
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={handleCategoryChange}
+        />
+
+        {accumulatedFaqs && (
+          <List
+            faqs={accumulatedFaqs}
+            activeTab={activeTab}
+            onLoadMore={handleLoadMore}
+            isLoading={isLoading || isFetching}
+            isEmpty={faqs?.items.length === 0 && searchQuery !== ""}
+          />
+        )}
+      </FaqErrorBoundary>
       <ServiceInquiry />
       <ProcessInfo />
       <AppDownload />
