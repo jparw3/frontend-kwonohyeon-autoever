@@ -19,9 +19,9 @@ export default function LoadingLottie({ color = "#b4b9bc", ...props }: Props) {
     >
       <g>
         <circle
-          stroke-dasharray="164.93361431346415 56.97787143782138"
+          strokeDasharray="164.93361431346415 56.97787143782138"
           r="35"
-          stroke-width="10"
+          strokeWidth="10"
           stroke={color}
           fill="none"
           cy="50"
