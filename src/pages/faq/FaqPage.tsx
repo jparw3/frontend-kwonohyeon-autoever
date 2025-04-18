@@ -51,16 +51,14 @@ export default function FaqPage() {
     setAccumulatedItems([]);
   };
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
+  const handleSearch = (searchQuery: string) => {
+    setSearchQuery(searchQuery);
     resetFilters();
-    refetch();
   };
 
   const handleReset = () => {
     setSearchQuery("");
     resetFilters();
-    refetch();
   };
 
   const handleTabChange = (tab: MainTabType) => {
@@ -93,6 +91,7 @@ export default function FaqPage() {
       />
       <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
       <Search
+        searchQuery={searchQuery}
         onSearch={handleSearch}
         onReset={handleReset}
         searchResultCount={faqs?.pageInfo.totalRecord ?? 0}

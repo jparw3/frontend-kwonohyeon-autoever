@@ -5,12 +5,14 @@ import ClearIcon from "@/assets/icons/ClearIcon";
 import InitIcon from "@/assets/icons/InitIcon";
 
 interface SearchProps {
+  searchQuery: string;
   onSearch: (searchQuery: string) => void;
   onReset: () => void;
   searchResultCount: number;
 }
 
 export default function Search({
+  searchQuery,
   onSearch,
   onReset,
   searchResultCount,
@@ -34,6 +36,11 @@ export default function Search({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
+  };
+
+  const handleReset = () => {
+    setSearchInput("");
+    onReset();
   };
 
   const renderSearchInput = () => (
@@ -78,7 +85,7 @@ export default function Search({
       <button
         type="button"
         className={styles.search_result_reset_box}
-        onClick={onReset}
+        onClick={handleReset}
         aria-label="검색 초기화"
       >
         <InitIcon width={24} height={24} className={styles.init_icon} />
@@ -90,7 +97,7 @@ export default function Search({
   return (
     <div className={styles.wrapper}>
       {renderSearchInput()}
-      {searchInput && renderSearchResult()}
+      {searchQuery && renderSearchResult()}
     </div>
   );
 }
