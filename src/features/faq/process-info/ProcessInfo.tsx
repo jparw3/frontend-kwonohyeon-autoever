@@ -65,11 +65,11 @@ export default function ProcessInfo() {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <section className={styles.wrapper}>
       <h2 className={styles.title}>이용 프로세스 안내</h2>
       <div className={styles.steps_container}>
         {processSteps.map(renderProcessStep)}
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,4 +1,4 @@
-@import '@/styles/color.scss';
+@use "@/styles/color" as *;
 
 .error_container {
   padding: 40px 20px;

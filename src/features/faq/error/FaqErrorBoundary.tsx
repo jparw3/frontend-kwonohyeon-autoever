@@ -30,7 +30,7 @@ export class FaqErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className={styles.error_container}>
+        <div className={styles.error_container} role="alert">
           <h2>FAQ를 불러오는 중 문제가 발생했습니다</h2>
           <p>잠시 후 다시 시도해 주세요</p>
           <button

@@ -56,11 +56,11 @@ export default function ServiceInquiry() {
   );
 
   return (
-    <div className={styles.wrapper}>
+    <section className={styles.wrapper}>
       <h2 className={styles.title}>서비스 문의</h2>
       <div className={styles.inquiry_boxes}>
         {inquiryBoxes.map(renderInquiryBox)}
       </div>
-    </div>
+    </section>
   );
 }

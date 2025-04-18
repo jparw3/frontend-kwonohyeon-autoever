@@ -96,39 +96,41 @@ export default function FaqPage() {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <main className={styles.wrapper}>
       <Title
         title="자주 묻는 질문"
         subTitle="궁금하신 내용을 빠르게 찾아보세요."
       />
-      <FaqErrorBoundary>
-        <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
-        <Search
-          searchQuery={searchQuery}
-          onSearch={handleSearch}
-          onReset={handleReset}
-          searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
-        />
-        <FilterCategory
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategoryChange={handleCategoryChange}
-        />
-
-        {accumulatedFaqs && (
-          <List
-            faqs={accumulatedFaqs}
-            activeTab={activeTab}
-            onLoadMore={handleLoadMore}
-            isLoading={isLoading || isFetching}
-            isEmpty={faqs?.items.length === 0 && searchQuery !== ""}
+      <section aria-labelledby="faq-main-title">
+        <FaqErrorBoundary>
+          <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
+          <Search
+            searchQuery={searchQuery}
+            onSearch={handleSearch}
+            onReset={handleReset}
+            searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
           />
-        )}
-      </FaqErrorBoundary>
+          <FilterCategory
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onCategoryChange={handleCategoryChange}
+          />
+
+          {accumulatedFaqs && (
+            <List
+              faqs={accumulatedFaqs}
+              activeTab={activeTab}
+              onLoadMore={handleLoadMore}
+              isLoading={isLoading || isFetching}
+              isEmpty={faqs?.items.length === 0 && searchQuery !== ""}
+            />
+          )}
+        </FaqErrorBoundary>
+      </section>
       <ServiceInquiry />
       <ProcessInfo />
       <AppDownload />
       <ScrollToTopButton />
-    </div>
+    </main>
   );
 }
