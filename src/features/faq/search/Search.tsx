@@ -1,30 +1,29 @@
+import { useState } from "react";
 import styles from "@/features/faq/search/Search.module.scss";
 import SearchIcon from "@/assets/icons/SearchIcon";
 import ClearIcon from "@/assets/icons/ClearIcon";
 import InitIcon from "@/assets/icons/InitIcon";
 
 interface SearchProps {
-  searchInput: string;
-  setSearchInput: (value: string) => void;
-  onSearch: () => void;
+  onSearch: (searchQuery: string) => void;
   onReset: () => void;
   searchResultCount: number;
 }
 
 export default function Search({
-  searchInput,
-  setSearchInput,
   onSearch,
   onReset,
   searchResultCount,
 }: SearchProps) {
+  const [searchInput, setSearchInput] = useState("");
+
   const handleClear = () => {
     setSearchInput("");
-    onSearch();
+    onSearch("");
   };
 
   const handleSearch = () => {
-    onSearch();
+    onSearch(searchInput);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

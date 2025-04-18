@@ -14,13 +14,13 @@ export const fetchFaqs = async ({
   categoryID,
   offset = 0,
   limit = 10,
-  question = "",
+  question,
 }: FetchFaqsParams): Promise<FaqResponse> => {
   const params = new URLSearchParams({
     tab,
     limit: limit.toString(),
     offset: offset.toString(),
-    question,
+    ...(question && { question }),
   });
 
   if (categoryID) {

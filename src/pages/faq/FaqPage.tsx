@@ -15,7 +15,7 @@ import ScrollToTopButton from "@/shared/floating-button/ScrollToTopButton";
 
 export default function FaqPage() {
   const [activeTab, setActiveTab] = useState<MainTabType>("CONSULT");
-  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [offset, setOffset] = useState(0);
   const [accumulatedItems, setAccumulatedItems] = useState<
@@ -30,7 +30,7 @@ export default function FaqPage() {
   } = useFaqs({
     tab: activeTab,
     categoryID: selectedCategory ?? undefined,
-    question: searchInput,
+    ...(searchQuery && { question: searchQuery }),
     offset,
   });
 
@@ -51,13 +51,14 @@ export default function FaqPage() {
     setAccumulatedItems([]);
   };
 
-  const handleSearch = () => {
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
     resetFilters();
     refetch();
   };
 
   const handleReset = () => {
-    setSearchInput("");
+    setSearchQuery("");
     resetFilters();
     refetch();
   };
@@ -65,7 +66,7 @@ export default function FaqPage() {
   const handleTabChange = (tab: MainTabType) => {
     setActiveTab(tab);
     setSelectedCategory(null);
-    setSearchInput("");
+    setSearchQuery("");
     resetFilters();
     refetch();
   };
@@ -92,8 +93,6 @@ export default function FaqPage() {
       />
       <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
       <Search
-        searchInput={searchInput}
-        setSearchInput={setSearchInput}
         onSearch={handleSearch}
         onReset={handleReset}
         searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
