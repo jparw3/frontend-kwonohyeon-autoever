@@ -1,22 +1,11 @@
-import { useState, useEffect } from "react";
 import DesktopMenu from "@/shared/header/components/DesktopMenu";
 import MobileMenu from "@/shared/header/components/MobileMenu";
 import HamburgerButton from "@/shared/header/components/HamburgerButton";
 import styles from "@/shared/header/Header.module.scss";
+import { useUI } from "@/contexts/UIContext";
 
 export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const { isScrolled, isMobileMenuOpen, setIsMobileMenuOpen } = useUI();
 
   return (
     <>
@@ -34,10 +23,7 @@ export default function Header() {
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         />
       </header>
-      <MobileMenu
-        isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
-      />
+      <MobileMenu onClose={() => setIsMobileMenuOpen(false)} />
     </>
   );
 }
