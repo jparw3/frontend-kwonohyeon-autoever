@@ -31,31 +31,6 @@ $logo-height-desktop: 80px;
 $logo-width-mobile: 110px;
 $logo-height-mobile: 40px;
 
-
-@mixin mobile {
-  @media (max-width: #{$breakpoint-small - 1}) {
-    @content;
-  }
-}
-
-@mixin tablet {
-  @media (min-width: #{$breakpoint-small}) and (max-width: #{$breakpoint-medium - 1}) {
-    @content;
-  }
-}
-
-@mixin desktop {
-  @media (min-width: #{$breakpoint-medium}) and (max-width: #{$breakpoint-large - 1}) {
-    @content;
-  }
-}
-
-@mixin desktop-large {
-  @media (min-width: #{$breakpoint-large}) {
-    @content;
-  }
-}
-
 // Footer heights
 $footer-height-mobile: 284px;
 $footer-height-tablet: 284px;

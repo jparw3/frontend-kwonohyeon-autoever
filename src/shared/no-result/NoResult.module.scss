@@ -1,5 +1,7 @@
 @use "@/styles/color" as *;
 @use "@/styles/variables" as *;
+@use "@/styles/mixin" as *;
+
 
 .wrapper {
   display: flex;
