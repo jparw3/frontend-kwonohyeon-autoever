@@ -19,6 +19,11 @@ async function enableMocking() {
     const { worker } = await import("./mocks/browser");
     return worker.start();
   }
+
+  if (import.meta.env.VITE_USE_MSW === "true") {
+    const { worker } = await import("./mocks/browser");
+    worker.start();
+  }
 }
 
 enableMocking().then(() => {
