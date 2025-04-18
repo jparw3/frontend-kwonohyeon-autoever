@@ -38,3 +38,11 @@ export interface FetchFaqsParams {
   limit?: number;
   question?: string;
 }
+export interface Category {
+  categoryID: string;
+  name: string;
+}
+
+export interface CategoriesApiResponse {
+  data: Category[];
+}

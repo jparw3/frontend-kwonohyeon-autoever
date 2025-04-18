@@ -9,7 +9,7 @@ import ServiceInquiry from "@/features/faq/service-inquiry/ServiceInquiry";
 import ProcessInfo from "@/features/faq/process-info/ProcessInfo";
 import AppDownload from "@/features/faq/app-download/AppDownload";
 import { useFaqs } from "@/hooks/useFaqs";
-import { consultCategoryData, usageCategoryData } from "@/mocks/data/category";
+import { useCategories } from "@/hooks/useCategories";
 import { FaqResponse } from "@/mocks/data/faq";
 import ScrollToTopButton from "@/shared/floating-button/ScrollToTopButton";
 import { FaqErrorBoundary } from "@/features/faq/error/FaqErrorBoundary";
@@ -22,6 +22,8 @@ export default function FaqPage() {
   const [accumulatedItems, setAccumulatedItems] = useState<
     FaqResponse["items"]
   >([]);
+
+  const { data: categories } = useCategories(activeTab);
 
   const {
     data: faqs,
@@ -53,8 +55,6 @@ export default function FaqPage() {
     });
   }, [faqs, offset]);
 
-  const categories =
-    activeTab === "CONSULT" ? consultCategoryData : usageCategoryData;
   const accumulatedFaqs = faqs ? { ...faqs, items: accumulatedItems } : null;
 
   const resetFilters = () => {
@@ -110,12 +110,13 @@ export default function FaqPage() {
             onReset={handleReset}
             searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
           />
-          <FilterCategory
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onCategoryChange={handleCategoryChange}
-          />
-
+          {categories && (
+            <FilterCategory
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onCategoryChange={handleCategoryChange}
+            />
+          )}
           {accumulatedFaqs && (
             <List
               faqs={accumulatedFaqs}
