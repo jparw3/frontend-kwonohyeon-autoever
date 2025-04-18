@@ -18,5 +18,6 @@ export function useFaqs({
   return useQuery({
     queryKey: ["faqs", tab, categoryID, question, offset],
     queryFn: () => fetchFaqs({ tab, categoryID, offset, question }),
+    placeholderData: (previousData) => previousData,
   });
 }

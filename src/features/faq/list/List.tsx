@@ -7,7 +7,6 @@ import styles from "@/features/faq/list/List.module.scss";
 import { incrementFaqViewCount } from "@/api/faq";
 import Loading from "@/shared/loading/Loading";
 import FaqItem from "./FaqItem";
-
 interface ListProps {
   faqs: FaqResponse | null;
   activeTab: MainTabType;
@@ -38,14 +37,6 @@ export default function List({
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className={styles.wrapper}>
-        <Loading />
-      </div>
-    );
-  }
-
   if (!faqs || isEmpty) {
     return <NoResult />;
   }
@@ -65,7 +56,12 @@ export default function List({
           />
         ))}
       </ul>
-      {hasMoreData && <LoadMoreButton onClick={onLoadMore} />}
+
+      {hasMoreData && (
+        <div className={styles.loadMoreArea}>
+          {isLoading ? <Loading /> : <LoadMoreButton onClick={onLoadMore} />}
+        </div>
+      )}
     </div>
   );
 }
