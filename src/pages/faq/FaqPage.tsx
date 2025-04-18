@@ -37,9 +37,19 @@ export default function FaqPage() {
   useEffect(() => {
     if (!faqs) return;
 
-    setAccumulatedItems((prev) =>
-      offset === 0 ? faqs.items : [...prev, ...faqs.items]
-    );
+    setAccumulatedItems((prev) => {
+      if (offset === 0) {
+        return faqs.items;
+      }
+
+      const uniqueItems = Array.from(
+        new Map(
+          [...prev, ...faqs.items].map((item) => [item.id, item])
+        ).values()
+      );
+
+      return uniqueItems;
+    });
   }, [faqs, offset]);
 
   const categories =
