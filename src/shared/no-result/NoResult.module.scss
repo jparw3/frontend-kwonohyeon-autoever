@@ -1,0 +1,63 @@
+@use "@/styles/color" as *;
+@use "@/styles/variables" as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 160px 0;
+  text-align: center;
+  background-color: $color-white;
+  border-top: 2px solid $color-midnight-900;
+  border-bottom: 1px solid $color-gray-100;
+
+  @include mobile {
+    padding: 120px 0;
+  }
+
+  @include tablet {
+    padding: 120px 0;
+  }
+}
+
+.warning_icon {
+  width: 64px;
+  height: 64px;
+
+  @include mobile {
+    width: 32px;
+    height: 32px;
+  }
+
+  @include tablet {
+    width: 48px;
+    height: 48px;
+  }
+
+  @include desktop {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+.title {
+  margin-top: 16px;
+  font-size: 18px;
+  font-weight: 600;
+  color: $color-gray-500;
+
+  @include mobile {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+
+  @include tablet {
+    font-size: 16px;
+    margin-top: 8px;
+  }
+
+  @include desktop {
+    font-size: 18px;
+  }
+}

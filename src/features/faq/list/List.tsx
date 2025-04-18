@@ -1,10 +1,11 @@
-import styles from "@/features/faq/list/List.module.scss";
-import { FaqResponse } from "@/mocks/data/faq";
 import { useState } from "react";
+import { FaqResponse } from "@/mocks/data/faq";
 import ArrowDownIcon from "@/assets/icons/ArrowDownIcon";
-import LoadMoreButton from "@/shared/buttons/LoadMoreButton";
-import { MainTabType } from "@/features/faq/tab/MainTab";
 import ArrowRightIcon from "@/assets/icons/ArrowRightIcon";
+import LoadMoreButton from "@/shared/buttons/LoadMoreButton";
+import NoResult from "@/shared/no-result/NoResult";
+import { MainTabType } from "@/features/faq/tab/MainTab";
+import styles from "@/features/faq/list/List.module.scss";
 import { incrementFaqViewCount } from "@/api/faq";
 
 interface ListProps {
@@ -69,6 +70,10 @@ export default function List({ faqs, activeTab, onLoadMore }: ListProps) {
   );
 
   const hasMoreData = faqs.items.length < faqs.pageInfo.totalRecord;
+
+  if (faqs.items.length === 0) {
+    return <NoResult />;
+  }
 
   return (
     <div className={styles.wrapper}>
