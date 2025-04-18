@@ -13,9 +13,9 @@ $spacing-desktop: 48px;
 $spacing-mobile: 24px;
 
 // Z-index
-$z-header: 1001;
-$z-hamburger: 1001;
-$z-mobile-menu: 999;
+$z-header: 999;
+$z-hamburger: 999;
+$z-mobile-menu: 1001;
 
 // Animation
 $cubic-bezier-primary: cubic-bezier(1, 0, 0.2, 1);
@@ -30,31 +30,6 @@ $logo-width-desktop: 140px;
 $logo-height-desktop: 80px;
 $logo-width-mobile: 110px;
 $logo-height-mobile: 40px;
-
-
-@mixin mobile {
-  @media (max-width: #{$breakpoint-small - 1}) {
-    @content;
-  }
-}
-
-@mixin tablet {
-  @media (min-width: #{$breakpoint-small}) and (max-width: #{$breakpoint-medium - 1}) {
-    @content;
-  }
-}
-
-@mixin desktop {
-  @media (min-width: #{$breakpoint-medium}) and (max-width: #{$breakpoint-large - 1}) {
-    @content;
-  }
-}
-
-@mixin desktop-large {
-  @media (min-width: #{$breakpoint-large}) {
-    @content;
-  }
-}
 
 // Footer heights
 $footer-height-mobile: 284px;

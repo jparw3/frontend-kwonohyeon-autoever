@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "@/pages/faq/FaqPage.module.scss";
-import Title from "@/features/faq/title/Title";
+import Title from "@/shared/title/Title";
 import MainTab, { MainTabType } from "@/features/faq/tab/MainTab";
 import Search from "@/features/faq/search/Search";
 import FilterCategory from "@/features/faq/filter/FilterCategory";
@@ -9,18 +9,21 @@ import ServiceInquiry from "@/features/faq/service-inquiry/ServiceInquiry";
 import ProcessInfo from "@/features/faq/process-info/ProcessInfo";
 import AppDownload from "@/features/faq/app-download/AppDownload";
 import { useFaqs } from "@/hooks/useFaqs";
-import { consultCategoryData, usageCategoryData } from "@/mocks/data/category";
+import { useCategories } from "@/hooks/useCategories";
 import { FaqResponse } from "@/mocks/data/faq";
 import ScrollToTopButton from "@/shared/floating-button/ScrollToTopButton";
+import { FaqErrorBoundary } from "@/features/faq/error/FaqErrorBoundary";
 
 export default function FaqPage() {
   const [activeTab, setActiveTab] = useState<MainTabType>("CONSULT");
-  const [searchInput, setSearchInput] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [offset, setOffset] = useState(0);
   const [accumulatedItems, setAccumulatedItems] = useState<
     FaqResponse["items"]
   >([]);
+
+  const { data: categories } = useCategories(activeTab);
 
   const {
     data: faqs,
@@ -30,20 +33,28 @@ export default function FaqPage() {
   } = useFaqs({
     tab: activeTab,
     categoryID: selectedCategory ?? undefined,
-    question: searchInput,
+    ...(searchQuery && { question: searchQuery }),
     offset,
   });
 
   useEffect(() => {
     if (!faqs) return;
 
-    setAccumulatedItems((prev) =>
-      offset === 0 ? faqs.items : [...prev, ...faqs.items]
-    );
+    setAccumulatedItems((prev) => {
+      if (offset === 0) {
+        return faqs.items;
+      }
+
+      const uniqueItems = Array.from(
+        new Map(
+          [...prev, ...faqs.items].map((item) => [item.id, item])
+        ).values()
+      );
+
+      return uniqueItems;
+    });
   }, [faqs, offset]);
 
-  const categories =
-    activeTab === "CONSULT" ? consultCategoryData : usageCategoryData;
   const accumulatedFaqs = faqs ? { ...faqs, items: accumulatedItems } : null;
 
   const resetFilters = () => {
@@ -51,24 +62,25 @@ export default function FaqPage() {
     setAccumulatedItems([]);
   };
 
-  const handleSearch = (value: string) => {
-    setSearchInput(value);
+  const handleSearch = (searchQuery: string) => {
+    setSearchQuery(searchQuery);
     resetFilters();
-    refetch();
   };
 
   const handleReset = () => {
-    setSearchInput("");
+    setSearchQuery("");
     resetFilters();
-    refetch();
   };
 
   const handleTabChange = (tab: MainTabType) => {
+    if (activeTab === tab) {
+      return;
+    }
+
     setActiveTab(tab);
     setSelectedCategory(null);
-    setSearchInput("");
+    setSearchQuery("");
     resetFilters();
-    refetch();
   };
 
   const handleCategoryChange = (categoryId: string | null) => {
@@ -78,39 +90,48 @@ export default function FaqPage() {
   };
 
   const handleLoadMore = () => {
-    if (faqs?.pageInfo.nextOffset) {
+    if (!isFetching && faqs?.pageInfo.nextOffset) {
       setOffset(faqs.pageInfo.nextOffset);
     }
   };
 
-  const renderLoading = () => <div className={styles.loading}>로딩 중...</div>;
-
   return (
-    <div className={styles.wrapper}>
-      <Title />
-      <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
-      <Search
-        onSearch={handleSearch}
-        onReset={handleReset}
-        searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
+    <main className={styles.wrapper}>
+      <Title
+        title="자주 묻는 질문"
+        subTitle="궁금하신 내용을 빠르게 찾아보세요."
       />
-      <FilterCategory
-        categories={categories}
-        selectedCategory={selectedCategory}
-        onCategoryChange={handleCategoryChange}
-      />
-      {(isLoading || isFetching) && renderLoading()}
-      {accumulatedFaqs && (
-        <List
-          faqs={accumulatedFaqs}
-          activeTab={activeTab}
-          onLoadMore={handleLoadMore}
-        />
-      )}
+      <section aria-labelledby="faq-main-title">
+        <FaqErrorBoundary>
+          <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
+          <Search
+            searchQuery={searchQuery}
+            onSearch={handleSearch}
+            onReset={handleReset}
+            searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
+          />
+          {categories && (
+            <FilterCategory
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onCategoryChange={handleCategoryChange}
+            />
+          )}
+          {accumulatedFaqs && (
+            <List
+              faqs={accumulatedFaqs}
+              activeTab={activeTab}
+              onLoadMore={handleLoadMore}
+              isLoading={isLoading || isFetching}
+              isEmpty={faqs?.items.length === 0 && searchQuery !== ""}
+            />
+          )}
+        </FaqErrorBoundary>
+      </section>
       <ServiceInquiry />
       <ProcessInfo />
       <AppDownload />
       <ScrollToTopButton />
-    </div>
+    </main>
   );
 }

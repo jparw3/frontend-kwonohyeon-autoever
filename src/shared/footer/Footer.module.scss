@@ -1,5 +1,6 @@
 @use "@/styles/variables" as *;
 @use "@/styles/color" as *;
+@use "@/styles/mixin" as *;
 
 .wrapper {
   display: flex;
@@ -169,44 +170,6 @@
   @include tablet {
     display: block;
     line-height: 1.6;
-
-    .address_item {
-      &:nth-child(1),
-      &:nth-child(2) {
-        display: inline;
-      }
-
-      &:nth-child(1)::after {
-        content: " ";
-        margin-right: 16px;
-      }
-
-      &:nth-child(3),
-      &:nth-child(4) {
-        display: inline;
-        margin-top: 8px;
-      }
-
-      &:nth-child(3) {
-        margin-right: 16px;
-      }
-
-      &:nth-child(5),
-      &:nth-child(6) {
-        display: inline;
-        margin-top: 8px;
-      }
-
-      &:nth-child(5) {
-        margin-right: 16px;
-      }
-
-      &:nth-child(2)::after,
-      &:nth-child(4)::after {
-        content: "\A";
-        white-space: pre;
-      }
-    }
   }
 
   @include desktop {

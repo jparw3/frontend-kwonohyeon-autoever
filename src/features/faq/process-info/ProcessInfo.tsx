@@ -1,14 +1,14 @@
+import React from "react";
 import styles from "@/features/faq/process-info/ProcessInfo.module.scss";
 import QuestionChatIcon from "@/assets/icons/QuestionChatIcon";
 import UserSettingsIcon from "@/assets/icons/UserSettingsIcon";
 import UserAddIcon from "@/assets/icons/UserAddIcon";
 import CarParkingIcon from "@/assets/icons/CarParkingIcon";
 import ArrowRightIcon from "@/assets/icons/ArrowRightIcon";
-import React from "react";
 
 interface ProcessStep {
   id: number;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className: string }>;
   title: string;
   description: string;
 }
@@ -42,30 +42,34 @@ const processSteps: ProcessStep[] = [
 ];
 
 export default function ProcessInfo() {
+  const renderProcessStep = (step: ProcessStep, index: number) => {
+    const { id, icon: Icon, title, description } = step;
+
+    return (
+      <React.Fragment key={id}>
+        <div className={styles.step_item}>
+          <Icon className={styles.icon} />
+          <div className={styles.text_content}>
+            <h3 className={styles.step_title}>{`${id}. ${title}`}</h3>
+            <p className={styles.step_description}>{description}</p>
+          </div>
+        </div>
+        {index < processSteps.length - 1 && (
+          <ArrowRightIcon
+            color="#b4b9bc"
+            className={styles.arrow_icon_desktop}
+          />
+        )}
+      </React.Fragment>
+    );
+  };
+
   return (
-    <div className={styles.wrapper}>
+    <section className={styles.wrapper}>
       <h2 className={styles.title}>이용 프로세스 안내</h2>
       <div className={styles.steps_container}>
-        {processSteps.map((step, index) => (
-          <React.Fragment key={step.id}>
-            <div className={styles.step_item}>
-              <step.icon className={styles.icon} />
-              <div className={styles.text_content}>
-                <h3
-                  className={styles.step_title}
-                >{`${step.id}. ${step.title}`}</h3>
-                <p className={styles.step_description}>{step.description}</p>
-              </div>
-            </div>
-            {index < processSteps.length - 1 && (
-              <ArrowRightIcon
-                color="#b4b9bc"
-                className={styles.arrow_icon_desktop}
-              />
-            )}
-          </React.Fragment>
-        ))}
+        {processSteps.map(renderProcessStep)}
       </div>
-    </div>
+    </section>
   );
 }

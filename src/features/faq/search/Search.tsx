@@ -1,75 +1,103 @@
-import { useRef } from "react";
-import styles from "@/features/faq/search/Search.module.scss";
+import { useState } from "react";
 import SearchIcon from "@/assets/icons/SearchIcon";
 import ClearIcon from "@/assets/icons/ClearIcon";
 import InitIcon from "@/assets/icons/InitIcon";
+import styles from "@/features/faq/search/Search.module.scss";
 
 interface SearchProps {
-  onSearch: (value: string) => void;
+  searchQuery: string;
+  onSearch: (searchQuery: string) => void;
   onReset: () => void;
   searchResultCount: number;
 }
 
-export default function Search({ onSearch, onReset, searchResultCount }: SearchProps) {
-  const inputRef = useRef<HTMLInputElement>(null);
+export default function Search({
+  searchQuery,
+  onSearch,
+  onReset,
+  searchResultCount,
+}: SearchProps) {
+  const [searchInput, setSearchInput] = useState("");
 
   const handleClear = () => {
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
+    setSearchInput("");
+    onSearch("");
   };
 
-  const triggerSearch = () => {
-    if (inputRef.current) {
-      onSearch(inputRef.current.value);
-    }
+  const handleSearch = () => {
+    onSearch(searchInput);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      triggerSearch();
+      handleSearch();
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
+  const handleReset = () => {
+    setSearchInput("");
+    onReset();
+  };
+
+  const renderSearchInput = () => (
+    <div className={styles.input_container}>
+      <div className={styles.input_box}>
+        <input
+          type="text"
+          className={styles.input}
+          placeholder="찾으시는 내용을 입력해 주세요"
+          onKeyDown={handleKeyDown}
+          aria-label="검색어 입력"
+          value={searchInput}
+          onChange={handleChange}
+        />
+        <button
+          type="button"
+          className={`${styles.clear_icon} ${
+            !searchInput ? styles.hidden : ""
+          }`}
+          onClick={handleClear}
+          aria-label="검색어 지우기"
+        >
+          <ClearIcon width={20} height={20} color="#CDD0D2" />
+        </button>
+        <button
+          type="button"
+          className={styles.search_icon}
+          onClick={handleSearch}
+          aria-label="검색"
+        >
+          <SearchIcon width={32} height={32} />
+        </button>
+      </div>
+    </div>
+  );
+
+  const renderSearchResult = () => (
+    <div className={styles.search_result_box}>
+      <span className={styles.search_result_count}>
+        검색결과 총 {searchResultCount}건
+      </span>
+      <button
+        type="button"
+        className={styles.search_result_reset_box}
+        onClick={handleReset}
+        aria-label="검색 초기화"
+      >
+        <InitIcon width={24} height={24} className={styles.init_icon} />
+        <span>검색초기화</span>
+      </button>
+    </div>
+  );
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.input_container}>
-        <div className={styles.input_box}>
-          <input
-            ref={inputRef}
-            type="text"
-            className={styles.input}
-            placeholder="찾으시는 내용을 입력해 주세요"
-            onKeyDown={handleKeyDown}
-          />
-          <ClearIcon
-            width={20}
-            height={20}
-            color="#CDD0D2"
-            className={styles.clear_icon}
-            onClick={handleClear}
-            style={{
-              visibility: inputRef.current?.value ? "visible" : "hidden",
-            }}
-          />
-          <SearchIcon
-            width={32}
-            height={32}
-            className={styles.search_icon}
-            onClick={triggerSearch}
-          />
-        </div>
-      </div>
-
-      <div className={styles.search_result_box}>
-        <span className={styles.search_result_count}>
-          검색결과 총 {searchResultCount}건
-        </span>
-        <div className={styles.search_result_reset_box} onClick={onReset}>
-          <InitIcon width={24} height={24} className={styles.init_icon} />
-          <span>검색초기화</span>
-        </div>
-      </div>
+      {renderSearchInput()}
+      {searchQuery && renderSearchResult()}
     </div>
   );
 }

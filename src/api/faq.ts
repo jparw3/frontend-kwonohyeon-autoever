@@ -1,39 +1,30 @@
-import { MainTabType } from "@/features/faq/tab/MainTab";
+import { FetchFaqsParams, FaqApiResponse } from "@/api/type";
 import { FaqResponse } from "@/mocks/data/faq";
-
-interface FetchFaqsParams {
-  tab: MainTabType;
-  categoryID?: string;
-  offset?: number;
-  limit?: number;
-  question?: string;
-}
+import { get, post } from "@/api/axios";
 
 export const fetchFaqs = async ({
   tab,
   categoryID,
   offset = 0,
   limit = 10,
-  question = "",
+  question,
 }: FetchFaqsParams): Promise<FaqResponse> => {
   const params = new URLSearchParams({
     tab,
     limit: limit.toString(),
     offset: offset.toString(),
-    question,
+    ...(question && { question }),
   });
 
   if (categoryID) {
     params.append("faqCategoryID", categoryID);
   }
 
-  const response = await fetch(`/faq?${params.toString()}`);
-  return response.json();
+  const response = await get<FaqApiResponse>(`/faq?${params.toString()}`);
+  return response.data;
 };
 
 export const incrementFaqViewCount = async (id: number) => {
-  const response = await fetch(`/faq/${id}/viewCount`, {
-    method: "POST",
-  });
-  return response.json();
+  const response = await post(`/faq/${id}/viewCount`);
+  return response;
 };

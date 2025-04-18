@@ -1,83 +1,67 @@
-import styles from "@/features/faq/list/List.module.scss";
-import { FaqResponse } from "@/mocks/data/faq";
 import { useState } from "react";
-import ArrowDownIcon from "@/assets/icons/ArrowDownIcon";
-import PlusIcon from "@/assets/icons/PlusIcon";
-import { MainTabType } from "@/features/faq/tab/MainTab";
-import ArrowRightIcon from "@/assets/icons/ArrowRightIcon";
+import { FaqResponse } from "@/mocks/data/faq";
 import { incrementFaqViewCount } from "@/api/faq";
-
+import LoadMoreButton from "@/shared/buttons/LoadMoreButton";
+import NoResult from "@/shared/no-result/NoResult";
+import Loading from "@/shared/loading/Loading";
+import { MainTabType } from "@/features/faq/tab/MainTab";
+import FaqItem from "@/features/faq/list/FaqItem";
+import styles from "@/features/faq/list/List.module.scss";
 interface ListProps {
-  faqs: FaqResponse;
+  faqs: FaqResponse | null;
   activeTab: MainTabType;
   onLoadMore: () => void;
+  isLoading: boolean;
+  isEmpty: boolean;
 }
 
-export default function List({ faqs, activeTab, onLoadMore }: ListProps) {
+export default function List({
+  faqs,
+  activeTab,
+  onLoadMore,
+  isLoading,
+  isEmpty,
+}: ListProps) {
   const [openId, setOpenId] = useState<number | null>(null);
 
   const handleClick = async (id: number) => {
-    try {
-      if (openId !== id) {
+    const isOpening = openId !== id;
+    setOpenId(isOpening ? id : null);
+
+    if (isOpening) {
+      try {
         await incrementFaqViewCount(id);
+      } catch (error) {
+        console.error("Failed to increment view count:", error);
       }
-      setOpenId(openId === id ? null : id);
-    } catch (error) {
-      console.error("Failed to increment view count:", error);
-      setOpenId(openId === id ? null : id);
     }
   };
 
-  const getCategoryName = (faq: FaqResponse["items"][0]) => {
-    return activeTab === "CONSULT" ? faq.subCategoryName : faq.categoryName;
-  };
-
-  const renderCategoryBox = (faq: FaqResponse["items"][0]) => (
-    <div className={styles.category_box}>
-      <div className={styles.category}>{getCategoryName(faq)}</div>
-      <ArrowRightIcon
-        className={styles.category_arrow}
-        width={16}
-        height={16}
-        color="#b4b9bc"
-      />
-      <div className={styles.sub_category}>{faq.subCategoryName}</div>
-    </div>
-  );
-
-  const renderFaqItem = (faq: FaqResponse["items"][0]) => (
-    <li
-      key={faq.id}
-      className={styles.faq_container}
-      onClick={() => handleClick(faq.id)}
-      aria-expanded={openId === faq.id}
-    >
-      <div className={styles.faq_item}>
-        {renderCategoryBox(faq)}
-        <div className={styles.question}>{faq.question}</div>
-        <ArrowDownIcon className={styles.arrow_icon} />
-      </div>
-      <div
-        className={styles.answer}
-        dangerouslySetInnerHTML={{ __html: faq.answer }}
-        data-open={openId === faq.id}
-      />
-    </li>
-  );
-
-  const renderLoadMoreButton = () => (
-    <button type="button" className={styles.load_more} onClick={onLoadMore}>
-      <PlusIcon className={styles.plus_icon} />
-      더보기
-    </button>
-  );
+  if (!faqs || isEmpty) {
+    return <NoResult />;
+  }
 
   const hasMoreData = faqs.items.length < faqs.pageInfo.totalRecord;
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.faqs}>{faqs.items.map(renderFaqItem)}</div>
-      {hasMoreData && renderLoadMoreButton()}
+      <ul className={styles.faqs}>
+        {faqs.items.map((item) => (
+          <FaqItem
+            key={item.id}
+            item={item}
+            activeTab={activeTab}
+            isOpen={openId === item.id}
+            onClick={() => handleClick(item.id)}
+          />
+        ))}
+      </ul>
+
+      {hasMoreData && (
+        <div className={styles.loadMoreArea}>
+          {isLoading ? <Loading /> : <LoadMoreButton onClick={onLoadMore} />}
+        </div>
+      )}
     </div>
   );
 }

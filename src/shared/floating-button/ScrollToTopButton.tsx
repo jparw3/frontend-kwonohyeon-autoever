@@ -1,34 +1,12 @@
-import { useEffect, useState } from "react";
-import styles from "@/shared/floating-button/ScrollToTopButton.module.scss";
 import ArrowUpIcon from "@/assets/icons/ArrowUpIcon";
+import { scrollToTop } from "@/shared/utils/scroll-to-top";
+import styles from "@/shared/floating-button/ScrollToTopButton.module.scss";
+import { useUI } from "@/contexts/UIContext";
 
 export default function ScrollToTopButton() {
-  const [isVisible, setIsVisible] = useState(false);
+  const { isScrollTopVisible } = useUI();
 
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.scrollY > 200) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener("scroll", toggleVisibility);
-
-    return () => {
-      window.removeEventListener("scroll", toggleVisibility);
-    };
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  if (!isVisible) return null;
+  if (!isScrollTopVisible) return null;
 
   return (
     <button

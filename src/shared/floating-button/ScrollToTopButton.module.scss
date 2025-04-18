@@ -1,9 +1,10 @@
 @use "@/styles/color" as *;
 @use "@/styles/variables" as *;
+@use "@/styles/mixin" as *;
 
 .wrapper {
   position: fixed;
-  bottom: 200px;
+  bottom: 100px;
   right: 20px;
   z-index: 100;
   width: 56px;

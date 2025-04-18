@@ -5,6 +5,16 @@ import { consultFaqData, usageFaqData } from "@/mocks/data/faq";
 const viewCountMap = new Map<number, number>();
 
 export const handlers = [
+  http.get("/faq/categories", ({ request }) => {
+    const url = new URL(request.url);
+    const tab = url.searchParams.get("tab");
+
+    const categories =
+      tab === "CONSULT" ? consultCategoryData : usageCategoryData;
+
+    return HttpResponse.json(categories);
+  }),
+
   http.get("/faq", ({ request }) => {
     const url = new URL(request.url);
     const tab = url.searchParams.get("tab");

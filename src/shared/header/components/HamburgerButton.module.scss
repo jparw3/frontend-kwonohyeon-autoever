@@ -1,5 +1,7 @@
 @use "@/styles/variables" as *;
 @use "@/styles/color" as *;
+@use "@/styles/mixin" as *;
+
 
 .hamburger {
   display: none; 

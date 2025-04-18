@@ -1,10 +1,10 @@
-import styles from "@/features/faq/app-download/AppDownload.module.scss";
 import GooglePlayIcon from "@/assets/icons/GooglePlayIcon";
 import AppStoreIcon from "@/assets/icons/AppStoreIcon";
+import styles from "@/features/faq/app-download/AppDownload.module.scss";
 
 export default function AppDownload() {
   return (
-    <div className={styles.wrapper}>
+    <section className={styles.wrapper}>
       <h2 className={styles.title}>기아 비즈 App 지금 만나보세요!</h2>
       <div className={styles.buttons_container}>
         <a
@@ -26,6 +26,6 @@ export default function AppDownload() {
           <span>App Store</span>
         </a>
       </div>
-    </div>
+    </section>
   );
 }
