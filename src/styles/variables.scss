@@ -13,9 +13,9 @@ $spacing-desktop: 48px;
 $spacing-mobile: 24px;
 
 // Z-index
-$z-header: 1001;
-$z-hamburger: 1001;
-$z-mobile-menu: 999;
+$z-header: 999;
+$z-hamburger: 999;
+$z-mobile-menu: 1001;
 
 // Animation
 $cubic-bezier-primary: cubic-bezier(1, 0, 0.2, 1);
