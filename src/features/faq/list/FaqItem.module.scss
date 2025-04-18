@@ -1,0 +1,258 @@
+@use "@/styles/color" as *;
+@use "@/styles/variables" as *;
+
+.faq_container {
+    list-style: none;
+    width: 100%;
+    border-bottom: 1px solid $color-gray-100;
+    overflow: hidden;
+  
+    &[aria-expanded="true"] {
+      background-color: $color-gray-10;
+    }
+  }
+  
+  .faq_item {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px 48px 24px 24px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: $color-midnight-900;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+  
+    @include mobile {
+      flex-direction: column;
+      padding: 16px 88px 16px 0;
+    }
+  
+    @include tablet {
+      flex-direction: column;
+      padding: 24px 88px 24px 0;
+    }
+  
+    @include desktop {
+      flex-direction: row;
+      padding: 18px 96px 18px 0;
+    }
+  
+    @include desktop-large {
+      padding: 24px 108px 24px 0;
+    }
+  }
+  
+  .arrow_icon {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    color: $color-gray-400;
+    width: 32px;
+    height: 32px;
+  
+    @include mobile {
+      width: 24px;
+      height: 24px;
+      right: 4px;
+    }
+  
+    @include tablet {
+      width: 28px;
+      height: 28px;
+      right: 14px;
+    }
+  }
+  
+  [aria-expanded="true"] .arrow_icon {
+    transform: translateY(-50%) rotate(180deg);
+  }
+  
+  .category_box {
+    display: flex;
+  
+    @include mobile {
+      flex-direction: row;
+      gap: 4px;
+      align-items: center;
+      margin-bottom: 4px;
+  
+      .category_arrow {
+        width: 16px;
+        height: 16px;
+        color: $color-gray-500;
+      }
+    }
+  
+    @include tablet {
+      flex-direction: row;
+      gap: 4px;
+      align-items: center;
+      margin-bottom: 4px;
+      
+      .category_arrow {
+        width: 16px;
+        height: 16px;
+        color: $color-gray-500;
+      }
+    }
+  
+    @include desktop {
+      .category_arrow {
+        display: none;
+      }
+    }
+  
+    @include desktop-large {
+      .category_arrow {
+        display: none;
+      }
+    }
+  }
+  
+  .category {
+    font-size: 20px;
+    color: $color-gray-500;
+    padding: 0 24px;
+    box-sizing: border-box;
+    min-width: 184px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+    @include mobile {
+      font-size: 12px;
+      padding: 0;
+      min-width: 0;
+    }
+  
+    @include tablet {
+      font-size: 16px;
+      padding: 0;
+      min-width: 0;
+    }
+  
+    @include desktop {
+      font-size: 18px;
+      padding: 0 20px;
+      text-align: center;
+    }
+  
+    @include desktop-large {
+      font-size: 20px;
+      padding: 0 24px;
+      text-align: center;
+      min-width: 208px;
+    }
+  }
+  
+  .sub_category {
+    font-size: 20px;
+    color: $color-gray-500;
+    padding: 0 24px;
+    box-sizing: border-box;
+    min-width: 168px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+    @include mobile {
+      font-size: 12px;
+      padding: 0;
+      min-width: 0;
+    }
+  
+    @include tablet {
+      font-size: 16px;
+      padding: 0;
+      min-width: 0;
+    }
+  
+    @include desktop {
+      font-size: 18px;
+      padding: 0 20px;
+      text-align: center;
+      min-width: 148px;
+    }
+  
+    @include desktop-large {
+      font-size: 20px;
+      padding: 0 24px;
+      text-align: center;
+      min-width: 168px;
+    }
+  }
+  
+  .question {
+    font-size: 20px;
+    line-height: 1.5;
+    color: $color-midnight-900;
+    padding: 0 24px;
+    font-family: "KiaSignatureFixBold";
+    word-break: keep-all;
+    white-space: pre-wrap;
+  
+    @include mobile {
+      font-size: 16px;
+      padding: 0;
+    }
+  
+    @include tablet {
+      font-size: 20px;
+      padding: 0;
+    }
+  
+    @include desktop {
+      font-size: 18px;
+      padding: 0 20px;
+    }
+  }
+  
+  .answer {
+    overflow: hidden;
+    max-height: 0;
+    transition: 
+      max-height 0.4s cubic-bezier(1, 0, 0.5, 1),
+      padding 0.6s ease;
+    padding: 0 32px;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 18px;
+    line-height: 1.6;
+    color: $color-midnight-900;
+    background-color: $color-white;
+  
+    p {
+      margin: 18px 0;
+    }
+  
+    &[data-open="true"] {
+      max-height: 2000px;
+      transition: 
+        max-height 0.6s cubic-bezier(1, 0, 0.6, 1),
+        padding 0.6s ease;
+      padding: 24px 32px;
+  
+      @include mobile {
+        font-size: 14px;
+        padding: 16px 0;
+      }
+  
+      @include tablet {
+        font-size: 16px;
+        padding: 16px 0;
+      }
+    }
+  
+    @include mobile {
+      padding: 0;
+    }
+  
+    @include tablet {
+      padding: 0;
+    }
+  }
+  

@@ -81,8 +81,6 @@ export default function FaqPage() {
     }
   };
 
-  const renderLoading = () => <div className={styles.loading}>로딩 중...</div>;
-
   return (
     <div className={styles.wrapper}>
       <Title
@@ -101,12 +99,14 @@ export default function FaqPage() {
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
-      {(isLoading || isFetching) && renderLoading()}
+
       {accumulatedFaqs && (
         <List
           faqs={accumulatedFaqs}
           activeTab={activeTab}
           onLoadMore={handleLoadMore}
+          isLoading={isLoading || isFetching}
+          isEmpty={faqs?.items.length === 0 && searchQuery !== ""}
         />
       )}
       <ServiceInquiry />
