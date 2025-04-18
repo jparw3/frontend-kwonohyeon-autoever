@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "@/pages/faq/FaqPage.module.scss";
 import Title from "@/shared/title/Title";
 import MainTab, { MainTabType } from "@/features/faq/tab/MainTab";
@@ -22,6 +22,8 @@ export default function FaqPage() {
     FaqResponse["items"]
   >([]);
 
+  const scrollPositionRef = useRef<number>(0);
+
   const {
     data: faqs,
     isLoading,
@@ -42,6 +44,15 @@ export default function FaqPage() {
     );
   }, [faqs, offset]);
 
+  useEffect(() => {
+    if (offset > 0 && !isFetching && scrollPositionRef.current > 0) {
+      requestAnimationFrame(() => {
+        window.scrollTo(0, scrollPositionRef.current);
+        scrollPositionRef.current = 0;
+      });
+    }
+  }, [isFetching, offset]);
+
   const categories =
     activeTab === "CONSULT" ? consultCategoryData : usageCategoryData;
   const accumulatedFaqs = faqs ? { ...faqs, items: accumulatedItems } : null;
@@ -49,6 +60,7 @@ export default function FaqPage() {
   const resetFilters = () => {
     setOffset(0);
     setAccumulatedItems([]);
+    scrollPositionRef.current = 0;
   };
 
   const handleSearch = (searchQuery: string) => {
@@ -76,7 +88,8 @@ export default function FaqPage() {
   };
 
   const handleLoadMore = () => {
-    if (faqs?.pageInfo.nextOffset) {
+    if (!isFetching && faqs?.pageInfo.nextOffset) {
+      scrollPositionRef.current = window.scrollY;
       setOffset(faqs.pageInfo.nextOffset);
     }
   };
