@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/pages/faq/FaqPage.module.scss";
 import Title from "@/shared/title/Title";
 import MainTab, { MainTabType } from "@/features/faq/tab/MainTab";
@@ -62,11 +62,14 @@ export default function FaqPage() {
   };
 
   const handleTabChange = (tab: MainTabType) => {
+    if (activeTab === tab) {
+      return;
+    }
+
     setActiveTab(tab);
     setSelectedCategory(null);
     setSearchQuery("");
     resetFilters();
-    refetch();
   };
 
   const handleCategoryChange = (categoryId: string | null) => {
