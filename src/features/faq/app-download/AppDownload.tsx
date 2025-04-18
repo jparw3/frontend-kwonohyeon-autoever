@@ -1,6 +1,6 @@
-import styles from "@/features/faq/app-download/AppDownload.module.scss";
 import GooglePlayIcon from "@/assets/icons/GooglePlayIcon";
 import AppStoreIcon from "@/assets/icons/AppStoreIcon";
+import styles from "@/features/faq/app-download/AppDownload.module.scss";
 
 export default function AppDownload() {
   return (

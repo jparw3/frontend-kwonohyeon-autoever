@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import styles from "@/shared/header/Header.module.scss";
 import DesktopMenu from "@/shared/header/components/DesktopMenu";
 import MobileMenu from "@/shared/header/components/MobileMenu";
 import HamburgerButton from "@/shared/header/components/HamburgerButton";
+import styles from "@/shared/header/Header.module.scss";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

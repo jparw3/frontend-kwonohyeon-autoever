@@ -1,8 +1,8 @@
 import { useState } from "react";
-import styles from "@/features/faq/search/Search.module.scss";
 import SearchIcon from "@/assets/icons/SearchIcon";
 import ClearIcon from "@/assets/icons/ClearIcon";
 import InitIcon from "@/assets/icons/InitIcon";
+import styles from "@/features/faq/search/Search.module.scss";
 
 interface SearchProps {
   searchQuery: string;

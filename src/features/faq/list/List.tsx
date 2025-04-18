@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { FaqResponse } from "@/mocks/data/faq";
+import { incrementFaqViewCount } from "@/api/faq";
 import LoadMoreButton from "@/shared/buttons/LoadMoreButton";
 import NoResult from "@/shared/no-result/NoResult";
-import { MainTabType } from "@/features/faq/tab/MainTab";
-import styles from "@/features/faq/list/List.module.scss";
-import { incrementFaqViewCount } from "@/api/faq";
 import Loading from "@/shared/loading/Loading";
-import FaqItem from "./FaqItem";
+import { MainTabType } from "@/features/faq/tab/MainTab";
+import FaqItem from "@/features/faq/list/FaqItem";
+import styles from "@/features/faq/list/List.module.scss";
 interface ListProps {
   faqs: FaqResponse | null;
   activeTab: MainTabType;

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./FaqErrorBoundary.module.scss";
+import styles from "@/features/faq/error/FaqErrorBoundary.module.scss";
 
 interface Props {
   children: React.ReactNode;
