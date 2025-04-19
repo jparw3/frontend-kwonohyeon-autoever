@@ -8,6 +8,8 @@
     width: 100%;
     border-bottom: 1px solid $color-gray-100;
     overflow: hidden;
+    max-width: $max-width;
+    margin: 0 auto;
   
     &[aria-expanded="true"] {
       background-color: $color-gray-10;

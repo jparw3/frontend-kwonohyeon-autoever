@@ -13,6 +13,8 @@
   background-color: $color-white;
   border-top: 2px solid $color-midnight-900;
   border-bottom: 1px solid $color-gray-100;
+  max-width: $max-width;
+  margin: 0 auto;
 
   @include mobile {
     padding: 120px 0;

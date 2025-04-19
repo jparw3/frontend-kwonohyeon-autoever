@@ -2,14 +2,17 @@ import Header from "@/shared/header/Header";
 import Footer from "@/shared/footer/Footer";
 import FaqPage from "@/pages/faq/FaqPage";
 import { UIProvider } from "@/contexts/UIContext";
+import { FaqProvider } from "@/contexts/FaqContext";
 
 function App() {
   return (
-    <UIProvider>
-      <Header />
-      <FaqPage />
-      <Footer />
-    </UIProvider>
+    <FaqProvider>
+      <UIProvider>
+        <Header />
+        <FaqPage />
+        <Footer />
+      </UIProvider>
+    </FaqProvider>
   );
 }
 

@@ -55,7 +55,8 @@
   font-family: "KiaSignatureFixRegular";
 
   &::placeholder {
-    color: $color-gray-400;
+    color: $color-gray-300;
+    font-weight: 600;
   }
 
   &:focus {

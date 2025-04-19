@@ -1,4 +1,5 @@
 import styles from "@/features/faq/filter/FilterCategory.module.scss";
+import { useFaq } from "@/contexts/FaqContext";
 
 interface Category {
   categoryID: string;
@@ -7,16 +8,11 @@ interface Category {
 
 interface FilterCategoryProps {
   categories: Category[];
-  selectedCategory: string | null;
-  onCategoryChange: (categoryID: string | null) => void;
 }
 
-export default function FilterCategory({
-  categories,
-  selectedCategory,
-  onCategoryChange,
-}: FilterCategoryProps) {
-  
+export default function FilterCategory({ categories }: FilterCategoryProps) {
+  const { selectedCategory, setSelectedCategory } = useFaq();
+
   const renderRadioButton = (
     key: string,
     value: string | "ALL",
@@ -30,14 +26,14 @@ export default function FilterCategory({
         className={styles.filter_radio}
         value={value}
         checked={isChecked}
-        onChange={() => onCategoryChange(value === "ALL" ? null : value)}
+        onChange={() => setSelectedCategory(value === "ALL" ? "" : value)}
       />
       <i className={styles.filter_text}>{label}</i>
     </label>
   );
 
   const renderAllCategoryButton = () =>
-    renderRadioButton("ALL-key", "ALL", "전체", selectedCategory === null);
+    renderRadioButton("ALL-key", "ALL", "전체", selectedCategory === "");
 
   const renderCategoryButtons = () =>
     categories.map((category) =>

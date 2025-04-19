@@ -1,22 +1,18 @@
 import { FaqResponse } from "@/mocks/data/faq";
 import ArrowDownIcon from "@/assets/icons/ArrowDownIcon";
 import ArrowRightIcon from "@/assets/icons/ArrowRightIcon";
-import { MainTabType } from "@/features/faq/tab/MainTab";
 import styles from "@/features/faq/list/FaqItem.module.scss";
+import { useFaq } from "@/contexts/FaqContext";
 
 interface FaqItemProps {
   item: FaqResponse["items"][0];
-  activeTab: MainTabType;
   isOpen: boolean;
   onClick: () => void;
 }
 
-export default function FaqItem({
-  item,
-  activeTab,
-  isOpen,
-  onClick,
-}: FaqItemProps) {
+export default function FaqItem({ item, isOpen, onClick }: FaqItemProps) {
+  const { activeTab } = useFaq();
+
   const getCategoryName = (faq: FaqResponse["items"][0]) => {
     return activeTab === "CONSULT" ? faq.subCategoryName : faq.categoryName;
   };

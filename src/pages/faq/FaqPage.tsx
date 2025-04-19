@@ -13,11 +13,18 @@ import { useCategories } from "@/hooks/useCategories";
 import { FaqResponse } from "@/mocks/data/faq";
 import ScrollToTopButton from "@/shared/floating-button/ScrollToTopButton";
 import { FaqErrorBoundary } from "@/features/faq/error/FaqErrorBoundary";
+import { useFaq } from "@/contexts/FaqContext";
 
 export default function FaqPage() {
-  const [activeTab, setActiveTab] = useState<MainTabType>("CONSULT");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const {
+    activeTab,
+    setActiveTab,
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+  } = useFaq();
+
   const [offset, setOffset] = useState(0);
   const [accumulatedItems, setAccumulatedItems] = useState<
     FaqResponse["items"]
@@ -29,7 +36,6 @@ export default function FaqPage() {
     data: faqs,
     isLoading,
     isFetching,
-    refetch,
   } = useFaqs({
     tab: activeTab,
     categoryID: selectedCategory ?? undefined,
@@ -62,31 +68,15 @@ export default function FaqPage() {
     setAccumulatedItems([]);
   };
 
-  const handleSearch = (searchQuery: string) => {
-    setSearchQuery(searchQuery);
-    resetFilters();
-  };
-
-  const handleReset = () => {
-    setSearchQuery("");
-    resetFilters();
-  };
-
   const handleTabChange = (tab: MainTabType) => {
     if (activeTab === tab) {
       return;
     }
 
     setActiveTab(tab);
-    setSelectedCategory(null);
+    setSelectedCategory("");
     setSearchQuery("");
     resetFilters();
-  };
-
-  const handleCategoryChange = (categoryId: string | null) => {
-    setSelectedCategory(categoryId);
-    resetFilters();
-    refetch();
   };
 
   const handleLoadMore = () => {
@@ -104,23 +94,11 @@ export default function FaqPage() {
       <section aria-labelledby="faq-main-title">
         <FaqErrorBoundary>
           <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
-          <Search
-            searchQuery={searchQuery}
-            onSearch={handleSearch}
-            onReset={handleReset}
-            searchResultCount={faqs?.pageInfo.totalRecord ?? 0}
-          />
-          {categories && (
-            <FilterCategory
-              categories={categories}
-              selectedCategory={selectedCategory}
-              onCategoryChange={handleCategoryChange}
-            />
-          )}
+          <Search searchResultCount={faqs?.pageInfo.totalRecord ?? 0} />
+          {categories && <FilterCategory categories={categories} />}
           {accumulatedFaqs && (
             <List
               faqs={accumulatedFaqs}
-              activeTab={activeTab}
               onLoadMore={handleLoadMore}
               isLoading={isLoading || isFetching}
               isEmpty={faqs?.items.length === 0 && searchQuery !== ""}

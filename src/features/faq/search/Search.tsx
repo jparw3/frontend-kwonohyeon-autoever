@@ -1,31 +1,32 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchIcon from "@/assets/icons/SearchIcon";
 import ClearIcon from "@/assets/icons/ClearIcon";
 import InitIcon from "@/assets/icons/InitIcon";
 import styles from "@/features/faq/search/Search.module.scss";
+import { useFaq } from "@/contexts/FaqContext";
 
 interface SearchProps {
-  searchQuery: string;
-  onSearch: (searchQuery: string) => void;
-  onReset: () => void;
   searchResultCount: number;
 }
 
-export default function Search({
-  searchQuery,
-  onSearch,
-  onReset,
-  searchResultCount,
-}: SearchProps) {
+const Search = React.memo(function Search({ searchResultCount }: SearchProps) {
+  const { searchQuery, setSearchQuery, activeTab, selectedCategory } = useFaq();
   const [searchInput, setSearchInput] = useState("");
+
+  useEffect(() => {
+    if (searchInput) {
+      setSearchQuery(searchInput);
+    } else {
+      setSearchQuery("");
+    }
+  }, [activeTab, selectedCategory]);
 
   const handleClear = () => {
     setSearchInput("");
-    onSearch("");
   };
 
   const handleSearch = () => {
-    onSearch(searchInput);
+    setSearchQuery(searchInput);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -40,7 +41,7 @@ export default function Search({
 
   const handleReset = () => {
     setSearchInput("");
-    onReset();
+    setSearchQuery("");
   };
 
   const renderSearchInput = () => (
@@ -100,4 +101,6 @@ export default function Search({
       {searchQuery && renderSearchResult()}
     </div>
   );
-}
+});
+
+export default Search;
