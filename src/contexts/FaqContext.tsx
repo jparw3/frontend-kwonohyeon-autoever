@@ -30,19 +30,16 @@ export function FaqProvider({ children }: FaqProviderProps) {
 
   const handleSetActiveTab = (tab: MainTabType) => {
     setActiveTab(tab);
-    console.log("activeTab", activeTab);
     setOpenId(null);
   };
 
   const handleSetSearchQuery = (query: string) => {
     setSearchQuery(query);
-    console.log("searchQuery", searchQuery);
     setOpenId(null);
   };
 
   const handleSetSelectedCategory = (category: string) => {
     setSelectedCategory(category);
-    console.log("selectedCategory", selectedCategory);
     setOpenId(null);
   };
 
