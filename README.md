@@ -6,11 +6,12 @@
 
 [사전과제 배포 링크 바로가기](https://fancy-gnome-b38a02.netlify.app/)
 
-![시연 영상](./src/assets/kia-flow.gif)
+![시연 영상](./src/assets/images/kia-flow.gif)
 
 ## 기술 스택
 
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![Saas](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![Saas](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white) ![TanStack Query](https://img.shields.io/badge/TanStack%20Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white) ![MSW](https://img.shields.io/badge/MSW-FF6A33?style=for-the-badge&logo=mockserviceworker&logoColor=white)
+
 
 ## 파일 구조
 
@@ -64,7 +65,7 @@
 
 ## 추가로 고려한 사항
 - 에러 바운더리 적용
-  ![에러 화면](./src/assets/error-view.png)
+  ![에러 화면](./src/assets/images/kia-error-view.png)
 
 - Context API 활용으로 UI 관련 변수 (스크롤 여부, Header 모바일 메뉴 상태 등) 전역 관리
   - 스크롤 이벤트 리스너를 한 곳에서 관리해 성능 개선
