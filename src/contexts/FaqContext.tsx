@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { MainTabType } from "@/features/faq/tab/MainTab";
+import { FaqResponse } from "@/mocks/data/faq";
 
 interface FaqContextType {
   openId: number | null;
@@ -10,6 +11,15 @@ interface FaqContextType {
   setSearchQuery: (query: string) => void;
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
+  offset: number;
+  setOffset: (offset: number) => void;
+  accumulatedItems: FaqResponse["items"];
+  setAccumulatedItems: (
+    items:
+      | FaqResponse["items"]
+      | ((prev: FaqResponse["items"]) => FaqResponse["items"])
+  ) => void;
+  handleTabChange: (tab: MainTabType) => void;
 }
 
 const FaqContext = createContext<FaqContextType | null>(null);
@@ -23,6 +33,10 @@ export function FaqProvider({ children }: FaqProviderProps) {
   const [activeTab, setActiveTab] = useState<MainTabType>("CONSULT");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [offset, setOffset] = useState(0);
+  const [accumulatedItems, setAccumulatedItems] = useState<
+    FaqResponse["items"]
+  >([]);
 
   const handleSetOpenId = (id: number | null) => {
     setOpenId(id);
@@ -31,6 +45,10 @@ export function FaqProvider({ children }: FaqProviderProps) {
   const handleSetActiveTab = (tab: MainTabType) => {
     setActiveTab(tab);
     setOpenId(null);
+    setSelectedCategory("");
+    setSearchQuery("");
+    setOffset(0);
+    setAccumulatedItems([]);
   };
 
   const handleSetSearchQuery = (query: string) => {
@@ -41,6 +59,15 @@ export function FaqProvider({ children }: FaqProviderProps) {
   const handleSetSelectedCategory = (category: string) => {
     setSelectedCategory(category);
     setOpenId(null);
+    setOffset(0);
+    setAccumulatedItems([]);
+  };
+
+  const handleTabChange = (tab: MainTabType) => {
+    if (activeTab === tab) {
+      return;
+    }
+    handleSetActiveTab(tab);
   };
 
   return (
@@ -54,6 +81,11 @@ export function FaqProvider({ children }: FaqProviderProps) {
         setSearchQuery: handleSetSearchQuery,
         selectedCategory,
         setSelectedCategory: handleSetSelectedCategory,
+        offset,
+        setOffset,
+        accumulatedItems,
+        setAccumulatedItems,
+        handleTabChange,
       }}
     >
       {children}
