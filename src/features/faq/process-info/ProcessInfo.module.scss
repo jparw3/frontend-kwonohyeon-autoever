@@ -114,11 +114,11 @@
   word-break: keep-all;
 
   @include mobile {
-    font-size: 14px;
+    font-size: $font-size-mobile;
   }
 
   @include tablet {
-    font-size: 16px;
+    font-size: $font-size-tablet;
   }
 }
 

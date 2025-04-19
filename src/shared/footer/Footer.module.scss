@@ -7,6 +7,7 @@
   background-color: $color-midnight-900;
   padding: 0 $spacing-desktop;
   margin-top: auto; 
+  max-width: 1660px;
 
   @include mobile {
     flex-direction: column;
@@ -120,7 +121,7 @@
   align-items: center;
 
   @include mobile {
-    font-size: 14px;
+    font-size: $font-size-mobile;
   }
 
   @include desktop {

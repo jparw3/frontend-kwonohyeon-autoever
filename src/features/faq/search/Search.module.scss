@@ -64,12 +64,12 @@
 
   @include mobile {
     padding: 0 66px 0 16px;
-    font-size: 14px;
+    font-size: $font-size-mobile;
   }
 
   @include tablet {
     padding: 0 86px 0 16px;
-    font-size: 16px;
+    font-size: $font-size-tablet;
   }
 
   @include desktop {

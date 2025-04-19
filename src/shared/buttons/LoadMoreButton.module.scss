@@ -10,7 +10,7 @@
     border-radius: 4px;
     background-color: $color-white;
     font-family: "KiaSignatureFixRegular";
-    font-size: 18px;
+    font-size: $font-size-desktop;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -18,11 +18,11 @@
     gap: 2px;
   
     @include mobile {
-      font-size: 14px;
+      font-size: $font-size-mobile;
     }
   
     @include tablet {
-      font-size: 16px;
+      font-size: $font-size-tablet;
     }
   
     @include desktop {

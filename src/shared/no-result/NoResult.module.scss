@@ -45,21 +45,21 @@
 
 .title {
   margin-top: 16px;
-  font-size: 18px;
+  font-size: $font-size-desktop;
   font-weight: 600;
   color: $color-gray-500;
 
   @include mobile {
-    font-size: 14px;
+    font-size: $font-size-mobile;
     margin-top: 8px;
   }
 
   @include tablet {
-    font-size: 16px;
+    font-size: $font-size-tablet;
     margin-top: 8px;
   }
 
   @include desktop {
-    font-size: 18px;
+    font-size: $font-size-desktop;
   }
 }

@@ -1,6 +1,7 @@
 @use "@/styles/variables" as *;
 @use "@/styles/color" as *;
 @use "@/styles/mixin" as *;
+
 .wrapper {
   display: flex;
   justify-content: center;
@@ -8,28 +9,26 @@
   height: 54px;
   width: 100%;
   max-width: $max-width;
-  font-size: 20px;
+  font-size: $font-size-desktop-large;
   margin: 0 auto;
 
   @include mobile {
     height: 40px;
-    font-size: 14px;
+    font-size: $font-size-mobile;
     margin-bottom: 24px;
   }
 
   @include tablet {
     height: 46px;
-    font-size: 16px;
+    font-size: $font-size-tablet;
     margin-bottom: 32px;
   }
 
   @include desktop {
-    font-size: 20px;
     margin-bottom: 40px;
   }
 
   @include desktop-large {
-    font-size: 20px;
     margin-bottom: 48px;
   }
 }
