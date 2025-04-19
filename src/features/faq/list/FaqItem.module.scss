@@ -28,12 +28,12 @@
   
     @include mobile {
       flex-direction: column;
-      padding: 16px 88px 16px 0;
+      padding: 16px 57px 16px 0;
     }
   
     @include tablet {
       flex-direction: column;
-      padding: 24px 88px 24px 0;
+      padding: 24px 92px 24px 0;
     }
   
     @include desktop {
@@ -132,19 +132,19 @@
     }
   
     @include tablet {
-      font-size: 16px;
+      font-size: $font-size-tablet;
       padding: 0;
       min-width: 0;
     }
   
     @include desktop {
-      font-size: 18px;
+      font-size: $font-size-desktop;
       padding: 0 20px;
       text-align: center;
     }
   
     @include desktop-large {
-      font-size: 20px;
+      font-size: $font-size-desktop-large;
       padding: 0 24px;
       text-align: center;
       min-width: 208px;
@@ -168,20 +168,20 @@
     }
   
     @include tablet {
-      font-size: 16px;
+      font-size: $font-size-tablet;
       padding: 0;
       min-width: 0;
     }
   
     @include desktop {
-      font-size: 18px;
+      font-size: $font-size-desktop;
       padding: 0 20px;
       text-align: center;
       min-width: 148px;
     }
   
     @include desktop-large {
-      font-size: 20px;
+      font-size: $font-size-desktop-large;
       padding: 0 24px;
       text-align: center;
       min-width: 168px;
@@ -239,7 +239,7 @@
       padding: 24px 32px;
   
       @include mobile {
-        font-size: 14px;
+        font-size: $font-size-mobile;
         padding: 16px 0;
       }
   

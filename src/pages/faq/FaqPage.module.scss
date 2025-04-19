@@ -1,6 +1,11 @@
 @use "@/styles/variables" as *;
+@use "@/styles/mixin" as *;
 
 .wrapper {  
   padding: 0 $spacing-desktop 80px;
   min-height: 100vh;
+
+  @include mobile {
+    padding: 0 $spacing-mobile 80px;
+  }  
 }

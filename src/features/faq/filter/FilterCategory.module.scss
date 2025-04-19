@@ -24,7 +24,7 @@
   color: $color-midnight-900;
   border-radius: 24px;
   
-  font-size: 18px;
+  font-size: $font-size-desktop;
   padding: 12px 20px;
 
   input[type="radio"]:checked + & {
@@ -33,12 +33,12 @@
   }
 
   @include mobile {
-    font-size: 14px;
+    font-size: $font-size-mobile;
     padding: 10px 12px;
   }
 
   @include tablet {
-    font-size: 16px;
+    font-size: $font-size-tablet;
     padding: 12px 14px;
   }
 }
