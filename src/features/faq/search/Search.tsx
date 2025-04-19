@@ -10,7 +10,7 @@ interface SearchProps {
 }
 
 const Search = React.memo(function Search({ searchResultCount }: SearchProps) {
-  const { setSearchQuery, activeTab, searchQuery } = useFaq();
+  const { setSearchQuery, activeTab, searchQuery, selectedCategory } = useFaq();
   const [searchInput, setSearchInput] = useState("");
 
   const handleClear = () => {
@@ -39,6 +39,12 @@ const Search = React.memo(function Search({ searchResultCount }: SearchProps) {
   useEffect(() => {
     handleReset();
   }, [activeTab]);
+
+  useEffect(() => {
+    if (!searchInput) {
+      handleReset();
+    }
+  }, [selectedCategory]);
 
   const renderSearchInput = () => (
     <div className={styles.input_container}>
