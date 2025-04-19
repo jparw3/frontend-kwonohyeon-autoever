@@ -37,7 +37,7 @@ export default function FaqItem({ item, isOpen, onClick }: FaqItemProps) {
 
   return (
     <li className={styles.faq_container} aria-expanded={isOpen}>
-      <div className={styles.faq_item} onClick={onClick}>
+      <div className={styles.faq_item} aria-expanded={isOpen} onClick={onClick}>
         {renderCategoryBox(item)}
         <div className={styles.question}>{item.question}</div>
         <ArrowDownIcon className={styles.arrow_icon} />

@@ -78,6 +78,7 @@
   @include mobile {
     padding: 16px;
     gap: 12px;
+    justify-content: start;
   }
   
   @include tablet {
