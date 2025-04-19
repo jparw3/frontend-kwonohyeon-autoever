@@ -27,6 +27,11 @@
     cursor: pointer;
     position: relative;
     transition: background-color 0.3s ease;
+
+      
+    &[aria-expanded="true"] {
+      border-bottom: 1px solid $color-gray-100;
+    }
   
     @include mobile {
       flex-direction: column;
@@ -247,7 +252,7 @@
   
       @include tablet {
         font-size: 16px;
-        padding: 16px 0;
+        padding: 24px;
       }
     }
   

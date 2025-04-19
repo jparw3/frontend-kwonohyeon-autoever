@@ -12,16 +12,18 @@ export default function Header() {
       <header
         className={`${styles.wrapper} ${isScrolled ? styles.scrolled : ""}`}
       >
-        <img
-          className={styles.logo}
-          src={"/logos/kia-biz.svg"}
-          alt="기아 비즈 로고"
-        />
-        <DesktopMenu />
-        <HamburgerButton
-          isOpen={isMobileMenuOpen}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        />
+        <div className={styles.header_container}>
+          <img
+            className={styles.logo}
+            src={"/logos/kia-biz.svg"}
+            alt="기아 비즈 로고"
+            />
+          <DesktopMenu />
+          <HamburgerButton
+            isOpen={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+        </div>
       </header>
       <MobileMenu onClose={() => setIsMobileMenuOpen(false)} />
     </>
