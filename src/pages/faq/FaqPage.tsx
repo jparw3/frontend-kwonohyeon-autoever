@@ -14,7 +14,6 @@ import { FaqResponse } from "@/mocks/data/faq";
 import ScrollToTopButton from "@/shared/floating-button/ScrollToTopButton";
 import { FaqErrorBoundary } from "@/features/faq/error/FaqErrorBoundary";
 import { useFaq } from "@/contexts/FaqContext";
-import NoResult from "@/shared/no-result/NoResult";
 
 export default function FaqPage() {
   const {
