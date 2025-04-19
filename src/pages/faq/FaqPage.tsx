@@ -14,6 +14,7 @@ import { FaqResponse } from "@/mocks/data/faq";
 import ScrollToTopButton from "@/shared/floating-button/ScrollToTopButton";
 import { FaqErrorBoundary } from "@/features/faq/error/FaqErrorBoundary";
 import { useFaq } from "@/contexts/FaqContext";
+import NoResult from "@/shared/no-result/NoResult";
 
 export default function FaqPage() {
   const {
@@ -57,7 +58,13 @@ export default function FaqPage() {
     });
   }, [faqs, offset, setAccumulatedItems]);
 
-  const accumulatedFaqs = { ...faqs, items: accumulatedItems };
+  const accumulatedFaqs = {
+    items: accumulatedItems,
+    pageInfo: faqs?.pageInfo ?? {
+      totalRecord: 0,
+      nextOffset: null,
+    },
+  };
 
   return (
     <main className={styles.wrapper}>
@@ -70,11 +77,11 @@ export default function FaqPage() {
           <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
           <Search searchResultCount={faqs?.pageInfo.totalRecord ?? 0} />
           {categories && <FilterCategory categories={categories} />}
-          {accumulatedFaqs.items.length > 0 && accumulatedFaqs.pageInfo && (
+          {accumulatedFaqs && (
             <List
               faqs={accumulatedFaqs as FaqResponse}
               isLoading={isLoading || isFetching}
-              isEmpty={faqs?.items.length === 0 && searchQuery !== ""}
+              isEmpty={accumulatedFaqs.items.length === 0 && searchQuery !== ""}
             />
           )}
         </FaqErrorBoundary>
