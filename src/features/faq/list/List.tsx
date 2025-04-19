@@ -39,7 +39,7 @@ export default function List({ faqs, isLoading, isEmpty }: ListProps) {
     return <NoResult />;
   }
 
-  const hasMoreData = faqs.items.length < faqs.pageInfo.totalRecord;
+  const hasMoreData = faqs.pageInfo.totalRecord > faqs.items.length;
 
   return (
     <div className={styles.wrapper}>

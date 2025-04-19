@@ -54,6 +54,8 @@ export function FaqProvider({ children }: FaqProviderProps) {
   const handleSetSearchQuery = (query: string) => {
     setSearchQuery(query);
     setOpenId(null);
+    setOffset(0);
+    setAccumulatedItems([]);
   };
 
   const handleSetSelectedCategory = (category: string) => {

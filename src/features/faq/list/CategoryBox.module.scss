@@ -1,0 +1,118 @@
+@use "@/styles/color" as *;
+@use "@/styles/variables" as *;
+@use "@/styles/mixin" as *;
+
+.category_box {
+    display: flex;
+  
+    @include mobile {
+      flex-direction: row;
+      gap: 4px;
+      align-items: center;
+      margin-bottom: 4px;
+  
+      .category_arrow {
+        width: 16px;
+        height: 16px;
+        color: $color-gray-500;
+      }
+    }
+  
+    @include tablet {
+      flex-direction: row;
+      gap: 4px;
+      align-items: center;
+      margin-bottom: 4px;
+      
+      .category_arrow {
+        width: 16px;
+        height: 16px;
+        color: $color-gray-500;
+      }
+    }
+  
+    @include desktop {
+      .category_arrow {
+        display: none;
+      }
+    }
+  
+    @include desktop-large {
+      .category_arrow {
+        display: none;
+      }
+    }
+  }
+  
+  .category {
+    font-size: 20px;
+    color: $color-gray-500;
+    padding: 0 24px;
+    box-sizing: border-box;
+    min-width: 184px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+    @include mobile {
+      font-size: 12px;
+      padding: 0;
+      min-width: 0;
+    }
+  
+    @include tablet {
+      font-size: $font-size-tablet;
+      padding: 0;
+      min-width: 0;
+    }
+  
+    @include desktop {
+      font-size: $font-size-desktop;
+      padding: 0 20px;
+      text-align: center;
+    }
+  
+    @include desktop-large {
+      font-size: $font-size-desktop-large;
+      padding: 0 24px;
+      text-align: center;
+      min-width: 208px;
+    }
+  }
+  
+  .sub_category {
+    font-size: 20px;
+    color: $color-gray-500;
+    padding: 0 24px;
+    box-sizing: border-box;
+    min-width: 168px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+    @include mobile {
+      font-size: 12px;
+      padding: 0;
+      min-width: 0;
+    }
+  
+    @include tablet {
+      font-size: $font-size-tablet;
+      padding: 0;
+      min-width: 0;
+    }
+  
+    @include desktop {
+      font-size: $font-size-desktop;
+      padding: 0 20px;
+      text-align: center;
+      min-width: 148px;
+    }
+  
+    @include desktop-large {
+      font-size: $font-size-desktop-large;
+      padding: 0 24px;
+      text-align: center;
+      min-width: 168px;
+    }
+  }

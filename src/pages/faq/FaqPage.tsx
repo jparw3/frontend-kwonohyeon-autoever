@@ -55,7 +55,7 @@ export default function FaqPage() {
 
       return uniqueItems;
     });
-  }, [faqs, offset]);
+  }, [faqs, offset, setAccumulatedItems]);
 
   const accumulatedFaqs = { ...faqs, items: accumulatedItems };
 
