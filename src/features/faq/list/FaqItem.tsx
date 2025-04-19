@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { FaqResponse } from "@/mocks/data/faq";
 import ArrowDownIcon from "@/assets/icons/ArrowDownIcon";
-import ArrowRightIcon from "@/assets/icons/ArrowRightIcon";
 import styles from "@/features/faq/list/FaqItem.module.scss";
+import CategoryBox from "@/features/faq/list/CategoryBox";
 import { useFaq } from "@/contexts/FaqContext";
 
 interface FaqItemProps {
@@ -10,35 +11,13 @@ interface FaqItemProps {
   onClick: () => void;
 }
 
-export default function FaqItem({ item, isOpen, onClick }: FaqItemProps) {
+const FaqItem = memo(function FaqItem({ item, isOpen, onClick }: FaqItemProps) {
   const { activeTab } = useFaq();
-
-  const getCategoryName = (faq: FaqResponse["items"][0]) => {
-    return activeTab === "CONSULT" ? faq.subCategoryName : faq.categoryName;
-  };
-
-  const renderCategoryBox = (faq: FaqResponse["items"][0]) => (
-    <div className={styles.category_box}>
-      <div className={styles.category}>{getCategoryName(faq)}</div>
-
-      {activeTab === "USAGE" && (
-        <>
-          <ArrowRightIcon
-            className={styles.category_arrow}
-            width={16}
-            height={16}
-            color="#b4b9bc"
-          />
-          <div className={styles.sub_category}>{faq.subCategoryName}</div>
-        </>
-      )}
-    </div>
-  );
 
   return (
     <li className={styles.faq_container} aria-expanded={isOpen}>
       <div className={styles.faq_item} aria-expanded={isOpen} onClick={onClick}>
-        {renderCategoryBox(item)}
+        <CategoryBox item={item} activeTab={activeTab} />
         <div className={styles.question}>{item.question}</div>
         <ArrowDownIcon className={styles.arrow_icon} />
       </div>
@@ -49,4 +28,6 @@ export default function FaqItem({ item, isOpen, onClick }: FaqItemProps) {
       />
     </li>
   );
-}
+});
+
+export default FaqItem;
