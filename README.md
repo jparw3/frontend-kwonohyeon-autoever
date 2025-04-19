@@ -67,8 +67,9 @@
 - 에러 바운더리 적용
   ![에러 화면](./src/assets/images/kia-error-view.png)
 
-- Context API 활용으로 UI 관련 변수 (스크롤 여부, Header 모바일 메뉴 상태 등) 전역 관리
-  - 스크롤 이벤트 리스너를 한 곳에서 관리해 성능 개선
+- Context API 활용 전역 상태 관리
+  - UI 관련 변수 (스크롤 여부, Header 모바일 메뉴 상태 등) 스크롤 이벤트 리스너를 한 곳에서 관리해 성능 개선
+  - FAQ 관련 변수 (parameter, 선택한 질문 등) 변수를 전역으로 관리해 props drilling 제거
 - util 함수 제작으로 재사용성 향상
 - 오픈그래프 이미지 및 설명 적용
 - 절대 경로 사용으로 유지보수성 향상
