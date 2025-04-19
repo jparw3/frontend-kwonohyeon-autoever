@@ -14,12 +14,18 @@ const Search = React.memo(function Search({ searchResultCount }: SearchProps) {
   const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
+    setSearchInput("")
+    setSearchQuery("")
+  }, [activeTab]);
+
+  useEffect(() => {
     if (searchInput) {
       setSearchQuery(searchInput);
-    } else {
+    } 
+    else {
       setSearchQuery("");
     }
-  }, [activeTab, selectedCategory]);
+  }, [selectedCategory]);
 
   const handleClear = () => {
     setSearchInput("");
