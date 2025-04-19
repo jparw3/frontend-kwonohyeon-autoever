@@ -46,8 +46,12 @@ export const handlers = [
 
     if (questionQuery) {
       const searchTerm = questionQuery.toLowerCase();
-      filteredItems = filteredItems.filter((item) =>
-        item.question.toLowerCase().includes(searchTerm)
+      filteredItems = filteredItems.filter(
+        (item) =>
+          item.question.toLowerCase().includes(searchTerm) ||
+          item.categoryName?.toLowerCase().includes(searchTerm) ||
+          item.subCategoryName?.toLowerCase().includes(searchTerm) ||
+          item.answer.toLowerCase().includes(searchTerm)
       );
     }
 
