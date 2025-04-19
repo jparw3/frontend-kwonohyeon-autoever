@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styles from "@/pages/faq/FaqPage.module.scss";
 import Title from "@/shared/title/Title";
-import MainTab, { MainTabType } from "@/features/faq/tab/MainTab";
+import MainTab from "@/features/faq/tab/MainTab";
 import Search from "@/features/faq/search/Search";
 import FilterCategory from "@/features/faq/filter/FilterCategory";
 import List from "@/features/faq/list/List";
@@ -18,17 +18,13 @@ import { useFaq } from "@/contexts/FaqContext";
 export default function FaqPage() {
   const {
     activeTab,
-    setActiveTab,
+    offset,
     searchQuery,
-    setSearchQuery,
     selectedCategory,
-    setSelectedCategory,
+    accumulatedItems,
+    setAccumulatedItems,
+    handleTabChange,
   } = useFaq();
-
-  const [offset, setOffset] = useState(0);
-  const [accumulatedItems, setAccumulatedItems] = useState<
-    FaqResponse["items"]
-  >([]);
 
   const { data: categories } = useCategories(activeTab);
 
@@ -46,7 +42,7 @@ export default function FaqPage() {
   useEffect(() => {
     if (!faqs) return;
 
-    setAccumulatedItems((prev) => {
+    setAccumulatedItems((prev: FaqResponse["items"]) => {
       if (offset === 0) {
         return faqs.items;
       }
@@ -61,29 +57,7 @@ export default function FaqPage() {
     });
   }, [faqs, offset]);
 
-  const accumulatedFaqs = faqs ? { ...faqs, items: accumulatedItems } : null;
-
-  const resetFilters = () => {
-    setOffset(0);
-    setAccumulatedItems([]);
-  };
-
-  const handleTabChange = (tab: MainTabType) => {
-    if (activeTab === tab) {
-      return;
-    }
-
-    setActiveTab(tab);
-    setSelectedCategory("");
-    setSearchQuery("");
-    resetFilters();
-  };
-
-  const handleLoadMore = () => {
-    if (!isFetching && faqs?.pageInfo.nextOffset) {
-      setOffset(faqs.pageInfo.nextOffset);
-    }
-  };
+  const accumulatedFaqs = { ...faqs, items: accumulatedItems };
 
   return (
     <main className={styles.wrapper}>
@@ -96,10 +70,9 @@ export default function FaqPage() {
           <MainTab activeTab={activeTab} onTabChange={handleTabChange} />
           <Search searchResultCount={faqs?.pageInfo.totalRecord ?? 0} />
           {categories && <FilterCategory categories={categories} />}
-          {accumulatedFaqs && (
+          {accumulatedFaqs.items.length > 0 && accumulatedFaqs.pageInfo && (
             <List
-              faqs={accumulatedFaqs}
-              onLoadMore={handleLoadMore}
+              faqs={accumulatedFaqs as FaqResponse}
               isLoading={isLoading || isFetching}
               isEmpty={faqs?.items.length === 0 && searchQuery !== ""}
             />

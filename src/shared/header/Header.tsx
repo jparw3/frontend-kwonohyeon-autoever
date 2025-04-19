@@ -13,11 +13,13 @@ export default function Header() {
         className={`${styles.wrapper} ${isScrolled ? styles.scrolled : ""}`}
       >
         <div className={styles.header_container}>
-          <img
-            className={styles.logo}
-            src={"/logos/kia-biz.svg"}
-            alt="기아 비즈 로고"
+          <a href="https://wiblebiz.kia.com/">
+            <img
+              className={styles.logo}
+              src={"/logos/kia-biz.svg"}
+              alt="기아 비즈 로고"
             />
+          </a>
           <DesktopMenu />
           <HamburgerButton
             isOpen={isMobileMenuOpen}

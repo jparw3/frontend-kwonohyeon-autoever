@@ -8,14 +8,13 @@ import { useFaq } from "@/contexts/FaqContext";
 import styles from "@/features/faq/list/List.module.scss";
 
 interface ListProps {
-  faqs: FaqResponse | null;
-  onLoadMore: () => void;
+  faqs: FaqResponse;
   isLoading: boolean;
   isEmpty: boolean;
 }
 
-export default function List({ faqs, onLoadMore, isLoading, isEmpty }: ListProps) {
-  const { openId, setOpenId } = useFaq();
+export default function List({ faqs, isLoading, isEmpty }: ListProps) {
+  const { openId, setOpenId, setOffset } = useFaq();
 
   const handleClick = async (id: number) => {
     const isOpening = openId !== id;
@@ -27,6 +26,12 @@ export default function List({ faqs, onLoadMore, isLoading, isEmpty }: ListProps
       } catch (error) {
         console.error("Failed to increment view count:", error);
       }
+    }
+  };
+
+  const handleLoadMore = () => {
+    if (faqs?.pageInfo.nextOffset) {
+      setOffset(faqs.pageInfo.nextOffset);
     }
   };
 
@@ -51,7 +56,11 @@ export default function List({ faqs, onLoadMore, isLoading, isEmpty }: ListProps
 
       {hasMoreData && (
         <div className={styles.loadMoreArea}>
-          {isLoading ? <Loading /> : <LoadMoreButton onClick={onLoadMore} />}
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <LoadMoreButton onClick={handleLoadMore} />
+          )}
         </div>
       )}
     </div>
