@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import styles from "@/pages/faq/FaqPage.module.scss";
 import Title from "@/shared/title/Title";
 import MainTab from "@/features/faq/tab/MainTab";
@@ -8,12 +8,13 @@ import List from "@/features/faq/list/List";
 import ServiceInquiry from "@/features/faq/service-inquiry/ServiceInquiry";
 import ProcessInfo from "@/features/faq/process-info/ProcessInfo";
 import AppDownload from "@/features/faq/app-download/AppDownload";
-import { useFaqs } from "@/hooks/useFaqs";
-import { useCategories } from "@/hooks/useCategories";
+import { useFaqs } from "@/queries/useFaqs";
+import { useCategories } from "@/queries/useCategories";
 import { FaqResponse } from "@/mocks/data/faq";
 import ScrollToTopButton from "@/shared/floating-button/ScrollToTopButton";
 import { FaqErrorBoundary } from "@/features/faq/error/FaqErrorBoundary";
 import { useFaq } from "@/contexts/FaqContext";
+import { useDebounce } from "@/shared/hooks/useDebounce";
 
 export default function FaqPage() {
   const {
@@ -39,23 +40,32 @@ export default function FaqPage() {
     offset,
   });
 
+  const debouncedFaqs = useDebounce(faqs, 300);
+
+  const updateAccumulatedItems = useCallback(
+    (newFaqs: FaqResponse | undefined) => {
+      if (!newFaqs) return;
+
+      setAccumulatedItems((prev: FaqResponse["items"]) => {
+        if (offset === 0 || searchQuery || selectedCategory) {
+          return newFaqs.items;
+        }
+
+        const uniqueItems = Array.from(
+          new Map(
+            [...prev, ...newFaqs.items].map((item) => [item.id, item])
+          ).values()
+        );
+
+        return uniqueItems;
+      });
+    },
+    [offset, searchQuery, selectedCategory, setAccumulatedItems]
+  );
+
   useEffect(() => {
-    if (!faqs) return;
-
-    setAccumulatedItems((prev: FaqResponse["items"]) => {
-      if (offset === 0) {
-        return faqs.items;
-      }
-
-      const uniqueItems = Array.from(
-        new Map(
-          [...prev, ...faqs.items].map((item) => [item.id, item])
-        ).values()
-      );
-
-      return uniqueItems;
-    });
-  }, [faqs, offset, setAccumulatedItems]);
+    updateAccumulatedItems(debouncedFaqs);
+  }, [debouncedFaqs, updateAccumulatedItems]);
 
   const accumulatedFaqs = {
     items: accumulatedItems,
@@ -80,7 +90,6 @@ export default function FaqPage() {
             <List
               faqs={accumulatedFaqs as FaqResponse}
               isLoading={isLoading || isFetching}
-              isEmpty={accumulatedFaqs.items.length === 0 && searchQuery !== ""}
             />
           )}
         </FaqErrorBoundary>

@@ -10,11 +10,10 @@ import styles from "@/features/faq/list/List.module.scss";
 interface ListProps {
   faqs: FaqResponse;
   isLoading: boolean;
-  isEmpty: boolean;
 }
 
-export default function List({ faqs, isLoading, isEmpty }: ListProps) {
-  const { openId, setOpenId, setOffset } = useFaq();
+export default function List({ faqs, isLoading }: ListProps) {
+  const { openId, setOpenId, setOffset, searchQuery } = useFaq();
 
   const handleClick = async (id: number) => {
     const isOpening = openId !== id;
@@ -35,7 +34,7 @@ export default function List({ faqs, isLoading, isEmpty }: ListProps) {
     }
   };
 
-  if (!faqs || isEmpty) {
+  if (searchQuery !== "" && faqs.items.length === 0) {
     return <NoResult />;
   }
 
