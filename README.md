@@ -21,7 +21,7 @@
   /assets: 이미지, 아이콘 등 정적 파일
   /contexts: React Context API로 관리하는 전역 상태
   /features: 재사용 가능한 기능 단위 컴포넌트
-  /hooks: Tanstack Query Hooks
+  /queries: Tanstack Query Hooks
   /mocks: MSW로 만든 mock 서버
   /pages: 라우트별 페이지 컴포넌트
   /shared: 공통으로 사용되는 컴포넌트, 훅, 유틸리티 함수
