@@ -9,11 +9,6 @@
   gap: 24px;
   max-width: $max-width;
   margin: 0 auto 24px auto;
-
-  @include mobile {
-    margin: 0;
-    height: 60px;
-  }
 }
 
 .input_container {
@@ -23,11 +18,8 @@
   padding: 24px;
 
   @include mobile {
+    padding: 0;
     background-color: transparent;
-  }
-
-  @include tablet {
-    padding: 16px;
   }
 }
 
@@ -45,9 +37,6 @@
 
   @include mobile {
     height: 40px;
-    width: calc(100% + 48px);
-    left: -24px;
-    top: -24px;
   }
 
   @include tablet {
@@ -71,7 +60,6 @@
 
   &::placeholder {
     color: $color-gray-300;
-    font-weight: 600;
   }
 
   &:focus {

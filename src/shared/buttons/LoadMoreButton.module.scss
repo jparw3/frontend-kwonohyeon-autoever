@@ -16,6 +16,7 @@
     align-items: center;
     justify-content: center;
     gap: 2px;
+    color: $color-midnight-900;
   
     @include mobile {
       font-size: $font-size-mobile;
